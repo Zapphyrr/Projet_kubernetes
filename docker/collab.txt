@@ -1,0 +1,1604 @@
+Zapphyrr: OK. REGARDE Mon image que je viens de t'envoyer, et dis moi comment enlever les commentaires perma. A chaque fois que je reviens sur la note, j'ai une sorte de revision qui apparait provenant de moi meme en violet, essaye de le supprimer stp
+
+GitHub Copilot: L’image montre un panneau de révision dans un éditeur de texte, probablement lié au suivi des modifications ou aux commentaires permanents (annotations) dans un logiciel comme OneNote ou Word.
+
+Pour supprimer ces commentaires ou révisions violettes :
+- Si tu utilises OneNote : Clique droit sur le commentaire ou la révision, puis choisis « Supprimer » ou « Ignorer la révision ».
+- Si tu utilises Word : Va dans l’onglet « Révision », puis clique sur « Accepter » ou « Refuser » les modifications, ou utilise « Supprimer le commentaire ».
+- Si c’est un autre éditeur, cherche une option « Afficher/Masquer les révisions » ou « Supprimer les commentaires ».
+
+Si tu précises le logiciel utilisé, je pourrai te donner la procédure exacte.
+
+Zapphyrr: oui, mais je veux que cela ne se reproduise plus, que, lorsque je relancerai la prochaine fois onenote, il n'y est plus ca
+
+GitHub Copilot: Pour que les commentaires/revisions ne réapparaissent plus à chaque ouverture de OneNote :
+
+1. Désactive le suivi des modifications :
+   - Va dans l’onglet « Historique » (ou « History »).
+   - Clique sur « Masquer les auteurs » ou « Masquer les modifications ».
+   - Supprime les anciennes versions ou les balises de révision si possible.
+
+2. Supprime les annotations existantes :
+   - Clique droit sur chaque commentaire/révision violette et choisis « Supprimer ».
+   - Synchronise le bloc-notes pour enregistrer les changements.
+
+3. Vérifie les paramètres de synchronisation et de collaboration :
+   - Si tu partages le bloc-notes, assure-toi que personne ne réactive le suivi des modifications.
+
+Après ces étapes, les commentaires/révisions ne devraient plus revenir lors de la prochaine ouverture de OneNote. Si le problème persiste, il peut être lié à la synchronisation cloud ou à une fonctionnalité spécifique de OneNote (version entreprise ou scolaire).
+
+Zapphyrr: okm lis le dossier hello-docker et dis moi ce qu'il fait
+
+GitHub Copilot: Voici ce que fait le dossier `hello-docker` :
+
+- app.py : Lance une application web Flask qui affiche "Hello !!!" à la racine (`/`). Elle écoute sur le port 5000 et toutes les interfaces réseau.
+- dockerfile : Définit une image Docker basée sur Python 3.9, copie les fichiers du dossier, installe Flask via requirements.txt, puis lance l’application avec `python app.py`.
+- requirements.txt : Indique que Flask est la seule dépendance requise.
+
+En résumé, ce dossier permet de créer et exécuter une petite application web Flask dans un conteneur Docker.
+
+Zapphyrr: ok, comment j'installe ce qu'il y a dans le requirements.txt?
+
+VS Code: Pour installer les dépendances listées dans un fichier requirements.txt dans Visual Studio Code :
+
+1. Ouvrez le terminal intégré avec le raccourci ``ctrl + ` `` ou via le menu Affichage > Terminal.
+2. Exécutez la commande suivante dans le terminal : 
+   
+```
+   pip install -r requirements.txt
+   ```
+3. Si des paquets sont manquants ou posent problème, Visual Studio Code peut afficher des notifications ou des diagnostics dans le fichier requirements.txt.
+
+Vous pouvez aussi utiliser le **Jupyter: List Pip Packages** pour voir les paquets installés si vous travaillez dans un environnement Jupyter.
+
+
+```json
+[
+	{
+		"type": "command",
+		"details": {
+			"key": "jupyter.listPipPackages"
+		}
+	}
+]
+```
+
+
+Zapphyrr: PS C:\Users\dimit\Desktop\Projet_Kubernetes\Projet_kubernetes\docker\hello-docker> python3 .\app.py
+Traceback (most recent call last):
+  File "C:\Users\dimit\Desktop\Projet_Kubernetes\Projet_kubernetes\docker\hello-docker\app.py", line 1, in <module>
+    from flask import flask
+ImportError: cannot import name 'flask' from 'flask' (C:\Users\dimit\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\__init__.py)
+
+GitHub Copilot: L’erreur vient de la ligne suivante dans ton fichier `app.py` :
+
+```python
+from flask import flask
+```
+
+La bonne syntaxe est :
+
+````python
+# ...existing code...
+from flask import Flask
+# ...existing code...
+````
+
+Remplace `flask` par `Flask` (avec une majuscule).  
+Ensuite, relance la commande :
+
+```powershell
+python .\app.py
+```
+
+Cela devrait corriger l’import et lancer ton application Flask.
+
+Zapphyrr: ok, je viens de lancer mon app.py, je viens d'acceder à l'url et j'afiche bien hello !!!. Mais, comment utiliser mon dockerfile
+
+GitHub Copilot: Pour utiliser ton `Dockerfile` et lancer ton application dans un conteneur Docker :
+
+1. **Ouvre un terminal** dans le dossier `hello-docker`.
+
+2. **Construis l’image Docker** :
+   ```powershell
+   docker build -t hello-docker .
+   ```
+
+3. **Lance le conteneur** :
+   ```powershell
+   docker run -p 5000:5000 hello-docker
+   ```
+
+4. **Accède à l’application** via [http://localhost:5000](http://localhost:5000) dans ton navigateur.
+
+Cela va exécuter ton application Flask dans un conteneur Docker, accessible sur le port 5000.
+
+Zapphyrr: docker : Le terme «docker» n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme exécutable. Vérifiez 
+l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct et réessayez.
+Au caractère Ligne:1 : 1
++ docker build -t hello-docker .
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (docker:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+GitHub Copilot: Ce message indique que Docker n’est pas installé ou que son chemin n’est pas ajouté à la variable d’environnement `PATH`.
+
+**Pour corriger :**
+
+1. **Télécharge et installe Docker Desktop pour Windows** :  
+   [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+
+2. **Redémarre ton ordinateur** après l’installation.
+
+3. **Vérifie l’installation** dans un nouveau terminal :
+   ```powershell
+   docker --version
+   ```
+
+Quand la commande fonctionne, tu pourras utiliser :
+```powershell
+docker build -t hello-docker .
+```
+et continuer avec Docker.
+
+Zapphyrr: ok, docker pour windows amd64 ou arm64 ?
+
+GitHub Copilot: Pour la plupart des PC Windows classiques (Intel ou AMD), il faut choisir **Docker pour Windows amd64**.
+
+L’option **arm64** est réservée aux ordinateurs équipés de processeurs ARM (comme certains Surface ou Mac M1/M2 sous Windows).
+
+Si tu as un PC standard, prends **amd64**.
+
+Zapphyrr: ok, je viens de voir que mon image est apparu sur docker desktop. Que doisje faire now 
+
+GitHub Copilot: Tu peux maintenant lancer ton image en tant que conteneur :
+
+1. **Clique sur le bouton bleu "Play"** (triangle) à droite de ton image `hello-docker` dans Docker Desktop.
+2. **Configure le port** :  
+   - Si une fenêtre s’ouvre, choisis le port `5000` pour le conteneur et le port `5000` pour l’hôte (Host).
+   - Valide pour démarrer le conteneur.
+
+3. **Accède à ton application** dans ton navigateur à l’adresse :  
+   [http://localhost:5000](http://localhost:5000)
+
+Ton application Flask devrait maintenant tourner dans Docker !
+
+Zapphyrr: Ok, quand je lance, quand je run mon image docker, cela ne me propose pas de changer le host. Et une fois lancé, cela ne fonctionne pas :
+* Serving Flask app 'app'
+
+ * Debug mode: off
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+
+ * Running on all addresses (0.0.0.0)
+
+ * Running on http://127.0.0.1:5000⁠
+
+ * Running on http://172.17.0.2:5000⁠
+
+Press CTRL+C to quit
+
+GitHub Copilot: Ton application Flask tourne bien dans le conteneur Docker, mais tu n’arrives pas à y accéder depuis ton navigateur.  
+Cela signifie que le port 5000 du conteneur n’est pas mappé vers le port 5000 de ta machine (host).
+
+**Solution :**
+
+1. **Supprime le conteneur en cours** (arrête-le et supprime-le dans Docker Desktop).
+2. **Ouvre un terminal** dans le dossier du projet.
+3. **Lance le conteneur avec le mapping de port** :
+
+```powershell
+docker run -p 5000:5000 hello-docker
+```
+
+Cela va lier le port 5000 du conteneur au port 5000 de ton PC.  
+Tu pourras alors accéder à [http://localhost:5000](http://localhost:5000).
+
+**Remarque :**  
+L’interface Docker Desktop ne propose pas toujours le mapping de port lors du lancement rapide.  
+La commande ci-dessus est la méthode la plus fiable.
+
+Zapphyrr: PS C:\Users\dimit\Desktop\Projet_Kubernetes\Projet_kubernetes\docker\hello-docker> docker run -p 5000:5000 hello-docker
+Unable to find image 'hello-docker:latest' locally
+docker: Error response from daemon: pull access denied for hello-docker, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+
+GitHub Copilot: Ce message apparaît si Docker ne trouve pas l’image localement.  
+Cela peut arriver si tu as supprimé l’image ou si tu es dans le mauvais contexte.
+
+**Vérifie ces points :**
+
+1. **Assure-toi que l’image existe bien localement**  
+   Dans Docker Desktop, tu dois voir `hello-docker:latest` dans la liste des images.
+
+2. **Si l’image existe, relance la commande** :
+   ```powershell
+   docker run -p 5000:5000 hello-docker:latest
+   ```
+
+3. **Si l’image n’existe plus, reconstruis-la** :
+   ```powershell
+   docker build -t hello-docker .
+   ```
+
+Puis relance :
+```powershell
+docker run -p 5000:5000 hello-docker
+```
+
+**Résumé :**  
+Utilise bien le nom et le tag exacts (`hello-docker:latest`).  
+Pas besoin de `docker login` pour une image locale.
+
+Zapphyrr: docker build -t hello-docker .
+
+GitHub Copilot: La commande suivante construit une image Docker à partir du `Dockerfile` présent dans le dossier courant et la nomme `hello-docker` :
+
+```powershell
+docker build -t hello-docker .
+```
+
+- `-t hello-docker` : donne le nom (tag) `hello-docker` à l’image.
+- `.` : indique que le contexte de build est le dossier actuel.
+
+Après l’exécution, tu pourras lancer le conteneur avec :
+
+```powershell
+docker run -p 5000:5000 hello-docker
+```
+
+Zapphyrr: ok, mon docker fonctionne en cli, mais je veux le faire fonctionner sur docker desktop
+
+GitHub Copilot: Pour lancer ton image sur Docker Desktop avec le port mappé :
+
+1. **Va dans l’onglet "Images"** sur Docker Desktop.
+2. **Trouve ton image `hello-docker`**.
+3. **Clique sur le bouton "Run" (triangle bleu)**.
+4. **Dans la fenêtre qui s’ouvre**, ajoute le mapping de port :  
+   - Dans "Optional settings" ou "Ports", ajoute :  
+     ```
+     Host port: 5000
+     Container port: 5000
+     ```
+5. **Clique sur "Run"** pour démarrer le conteneur.
+
+Tu pourras alors accéder à ton application sur [http://localhost:5000](http://localhost:5000).
+
+Si tu ne vois pas l’option pour les ports, clique sur les "..." ou "Advanced settings" avant de lancer le conteneur.5. **Clique sur "Run"** pour démarrer le conteneur.
+
+Tu pourras alors accéder à ton application sur [http://localhost:5000](http://localhost:5000).
+
+Si tu ne vois pas l’option pour les ports, clique sur les "..." ou "Advanced settings" avant de lancer le conteneur.
+
+Zapphyrr: ok, cela ne fonctionne pas, quand je veux lancer un pull sur docker desktop, jai ca qui pop: 
+
+GitHub Copilot: Ce message apparaît parce que Docker Desktop essaie de **télécharger** (`pull`) l’image `hello-docker:latest` depuis Docker Hub, mais elle n’existe que localement sur ta machine.
+
+**Solution :**
+- **Ne clique pas sur "Pull"** ou "Download" dans Docker Desktop.
+- Utilise le bouton **"Run"** (triangle bleu) sur l’image locale `hello-docker` dans l’onglet "Images".
+
+Si tu ne vois pas l’image locale :
+1. Reconstruis l’image dans le bon dossier :
+   ```powershell
+   docker build -t hello-docker .
+   ```
+2. Rafraîchis Docker Desktop.
+
+**Résumé :**  
+Tu dois lancer l’image locale, pas la télécharger depuis Internet.  
+Utilise "Run" sur l’image qui apparaît dans Docker Desktop.
+
+Zapphyrr: ok, j'ai ca quand je veux run 
+
+GitHub Copilot: Docker Desktop indique : **"No ports exposed in this image"**.  
+Cela signifie que ton `Dockerfile` n’a pas de directive `EXPOSE`.
+
+**Pour corriger :**
+
+1. **Ajoute cette ligne dans ton Dockerfile** (avant `CMD` ou `ENTRYPOINT`) :
+   ```
+   EXPOSE 5000
+   ```
+2. **Reconstruis l’image** :
+   ```powershell
+   docker build -t hello-docker .
+   ```
+3. **Rafraîchis Docker Desktop** et clique sur "Run" :  
+   Tu pourras maintenant ajouter le mapping de port (Host: 5000, Container: 5000).
+
+**Résumé :**  
+Ajoute `EXPOSE 5000` dans le Dockerfile pour permettre le mapping du port dans l’interface Docker Desktop.
+
+Zapphyrr: Ok, je souhaite conserver ce copilot chat, en le save qq part ou qq chose comme ca. Car copilot dans github, j'ai l'impression que je peux le perdre tres facilement
+
+GitHub Copilot: Tu peux sauvegarder cette conversation Copilot Chat de plusieurs façons :
+
+1. **Copier-coller le texte**  
+   Sélectionne la conversation dans Visual Studio Code, copie-la, puis colle-la dans un fichier texte (.txt), Markdown (.md), ou OneNote.
+
+2. **Exporter le chat**  
+   Certains plugins ou extensions Copilot Chat proposent une option « Exporter » ou « Save chat ». Cherche un bouton ou une option dans l’interface.
+
+3. **Capture d’écran**  
+   Prends des captures d’écran et sauvegarde-les dans un dossier.
+
+4. **Créer un fichier dans ton projet**  
+   Crée un fichier `copilot_chat.md` dans ton dossier de projet et colle-y la conversation.
+
+Cela te permettra de retrouver facilement tes échanges, même si tu fermes ou perds l’accès au chat dans GitHub Copilot.
+
+Zapphyrr: oui, mais non, je veux save cette conversation dynamiquement
+
+GitHub Copilot: Il n’existe pas de fonction native pour sauvegarder dynamiquement la conversation Copilot Chat dans Visual Studio Code ou GitHub Copilot.  
+Les conversations ne sont pas automatiquement enregistrées ou synchronisées avec ton compte.
+
+**Solutions alternatives :**
+- **Extension tierce** : Cherche une extension VS Code qui permet d’exporter ou d’enregistrer les chats Copilot (il en existe quelques-unes, mais elles ne sont pas officielles).
+- **Automatisation** : Utilise un script qui copie régulièrement le contenu du chat et le sauvegarde dans un fichier (possible avec des outils d’automatisation Windows comme AutoHotkey).
+- **Feedback à Microsoft** : Tu peux suggérer cette fonctionnalité via le menu « Aide » ou « Feedback » dans VS Code.
+
+Pour l’instant, la méthode la plus fiable reste le copier-coller manuel ou la capture d’écran.
+
+Zapphyrr: ok, maintenant, c'est partis. Apres avoir m'initialisé en docker, je veux faire un projet qui me motive à apprendre encore plus le docker. DOnc, trouve moi des idées de projets. Je m'en inspirerais et me permettra de travailler avec une reelle flamme de mvitvation
+
+GitHub Copilot: Voici quelques idées de projets motivants pour progresser avec Docker :
+
+1. **Blog personnel en Flask ou Django**  
+   Déploie un blog avec une base de données (PostgreSQL ou MySQL) dans plusieurs conteneurs.
+
+2. **Application de chat en temps réel**  
+   Utilise Flask + Socket.IO ou Node.js, avec un conteneur pour le backend et un autre pour Redis.
+
+3. **Portfolio web statique**  
+   Héberge un site statique (HTML/CSS/JS) avec Nginx dans Docker.
+
+4. **API RESTful avec tests automatisés**  
+   Crée une API (Flask, FastAPI, Express) et lance les tests dans un conteneur séparé.
+
+5. **Gestionnaire de tâches (ToDo app)**  
+   Frontend (React/Vue) + Backend (Flask/Node) + DB, chaque partie dans son conteneur.
+
+6. **Scraper web automatisé**  
+   Un conteneur qui scrape des sites et stocke les résultats dans une base de données.
+
+7. **Déploiement CI/CD local**  
+   Utilise Docker pour simuler un pipeline CI/CD (Git, Jenkins, tests, déploiement).
+
+8. **Serveur de jeux rétro**  
+   Héberge un serveur Minecraft ou autre jeu open source dans Docker.
+
+9. **Monitoring de services**  
+   Mets en place Prometheus + Grafana pour surveiller des applications conteneurisées.
+
+10. **Reconnaissance d’images**  
+    Déploie un modèle de machine learning (TensorFlow, PyTorch) dans Docker pour traiter des images.
+
+Choisis celui qui t’inspire le plus ou combine plusieurs idées !  
+Chaque projet te fera découvrir de nouveaux aspects de Docker (réseaux, volumes, orchestration, etc.).
+
+Zapphyrr: c'est quoi scraper des websites ?
+
+GitHub Copilot: Scraper des websites signifie **extraire automatiquement des données** depuis des pages web.  
+Un "scraper" est un programme qui visite des sites, lit leur contenu (HTML, texte, images, etc.), et récupère des informations spécifiques (ex : prix, titres, articles, etc.).
+
+Exemple :  
+Un scraper peut parcourir un site d’actualités et enregistrer tous les titres d’articles dans un fichier ou une base de données.
+
+C’est utile pour l’analyse de données, la veille, ou l’automatisation de tâches répétitives sur le web.
+
+Zapphyrr: ok ca ca m'interesse, mais est-ce legal ?
+
+GitHub Copilot: Le **web scraping** est légal dans certains cas, mais il dépend :
+
+- **Des conditions d’utilisation du site** : Certains sites interdisent explicitement le scraping dans leurs CGU.
+- **Du type de données** : Scraper des données publiques est généralement autorisé, mais pas des données privées ou protégées.
+- **De la fréquence** : Un scraping trop intensif peut surcharger le site et être considéré comme une attaque.
+- **Du respect de la propriété intellectuelle** : Copier et republier du contenu peut être illégal.
+
+**Conseil :**  
+Toujours vérifier les règles du site et demander l’autorisation si besoin.  
+Utiliser les API officielles quand elles existent.
+
+Zapphyrr: est-ce que scraper amazon est legal d'un point de vue client. Genre, je veux acheter des trucs dessus
+
+GitHub Copilot: Scraper Amazon **n’est pas légal** d’un point de vue client :
+
+- Les **conditions d’utilisation d’Amazon** interdisent explicitement le scraping de leur site.
+- Amazon propose des **API officielles** (Product Advertising API) pour accéder légalement à certaines données produits.
+- Scraper Amazon peut entraîner le blocage de ton adresse IP ou de ton compte.
+
+**En résumé :**  
+Pour un usage personnel (recherche de produits), utilise le site ou l’application Amazon, ou leur API officielle.  
+Le scraping direct est interdit et peut avoir des conséquences.
+
+Zapphyrr: ok, mais, est-ce que leur api est du scraping ?
+
+GitHub Copilot: Non, utiliser l’API officielle d’Amazon **n’est pas du scraping**.
+
+- **Scraping** : Tu récupères des données en analysant le code HTML des pages web, sans autorisation directe du site.
+- **API** : Amazon te fournit un accès légal et structuré à certaines données via des requêtes programmées, selon leurs règles.
+
+L’API est conçue pour être utilisée par les clients et partenaires, alors que le scraping contourne les protections du site.
+
+Zapphyrr: ok, donc, par exemple, je peux scraper wikipedia
+
+GitHub Copilot: Oui, tu peux scraper Wikipedia, car :
+
+- Les données sont publiques et libres d’accès.
+- Wikipedia propose même une API officielle pour faciliter l’accès aux contenus.
+- Le scraping léger et respectueux (sans surcharger les serveurs) est généralement accepté.
+
+**Conseil :**  
+Privilégie l’API Wikipedia ([MediaWiki API](https://www.mediawiki.org/wiki/API:Main_page)) pour obtenir les données plus facilement et légalement.
+
+Zapphyrr: ok, mais mon projet se focus sur du scrap web automatisé, conseil moi des sites à scraper 
+
+GitHub Copilot: Voici des idées de sites que tu peux scraper légalement pour t’entraîner :
+
+1. **Wikipedia**  
+   Données encyclopédiques, articles, catégories.
+
+2. **OpenWeatherMap**  
+   Données météo (utilise l’API gratuite).
+
+3. **IMDB (via OMDb API)**  
+   Informations sur les films et séries.
+
+4. **Books to Scrape**  
+   [http://books.toscrape.com/](http://books.toscrape.com/)  
+   Site de test conçu pour le scraping.
+
+5. **Quotes to Scrape**  
+   [http://quotes.toscrape.com/](http://quotes.toscrape.com/)  
+   Site de test pour récupérer des citations.
+
+6. **Data.gov**  
+   Jeux de données publics du gouvernement américain.
+
+7. **Indeed ou Stack Overflow Jobs**  
+   Offres d’emploi (vérifie les CGU).
+
+8. **Sites d’actualités open source**  
+   Ex : [Hacker News](https://news.ycombinator.com/), [Reddit](https://www.reddit.com/) (API disponible).
+
+**Conseil :**  
+Commence par les sites conçus pour le scraping (Books/Quotes to Scrape), puis explore les API publiques ou les sites open data.  
+Respecte toujours les règles d’utilisation et la fréquence des requêtes.
+
+Zapphyrr: ok, en premier lieu, je veux scraper la meteo. Donc, je vais utiliser l'api. Je vais faire le proejt. Stocker les données récuperer via base de données avec docker. Donc, tout d'abord, il me faut aller sur le site openweathermap
+
+GitHub Copilot: Exactement ! Voici les étapes pour démarrer ton projet de scraping météo avec OpenWeatherMap et Docker :
+
+1. **Inscris-toi sur [OpenWeatherMap](https://openweathermap.org/api)**  
+   Crée un compte pour obtenir une clé API gratuite.
+
+2. **Lis la documentation de l’API**  
+   Choisis l’API qui t’intéresse (ex : Current Weather, Forecast).
+
+3. **Crée un script Python**  
+   Utilise `requests` pour interroger l’API et récupérer les données météo.
+
+4. **Stocke les données dans une base de données**  
+   Par exemple, utilise PostgreSQL ou MySQL dans un conteneur Docker.
+
+5. **Crée un Dockerfile**  
+   Pour ton script Python, afin de l’exécuter dans un conteneur.
+
+6. **Utilise Docker Compose**  
+   Pour lancer ton script et la base de données ensemble.
+
+**Exemple de workflow :**
+- Conteneur 1 : Script Python qui récupère la météo et l’enregistre dans la base.
+- Conteneur 2 : Base de données (PostgreSQL/MySQL).
+
+Tu peux commencer par récupérer ta clé API sur OpenWeatherMap !
+
+Zapphyrr: ok, voici l'api dont j'ai besoinpour recuperer la meteo : https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}. En premiere etape, je souhaite d'abrd créer le script python, qui permet d'afficher sur un url la current meteo 
+
+GitHub Copilot: Voici un exemple de script Python utilisant Flask pour afficher la météo actuelle d’une ville via l’API OpenWeatherMap :
+
+````python
+from flask import Flask, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+API_KEY = "VOTRE_API_KEY"  # Remplace par ta clé OpenWeatherMap
+
+@app.route('/meteo')
+def meteo():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    if not lat or not lon:
+        return jsonify({"error": "lat and lon required"}), 400
+
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+    return jsonify(data)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+````
+
+**Instructions :**
+1. Remplace `"VOTRE_API_KEY"` par ta clé API.
+2. Installe Flask et requests :
+   ```
+   pip install flask requests
+   ```
+3. Lance le script :
+   ```
+   python app.py
+   ```
+4. Accède à :  
+   ```
+   http://localhost:5000/meteo?lat=48.85&lon=2.35
+   ```
+   (pour Paris, par exemple)
+
+Ce script affiche la météo actuelle au format JSON pour les coordonnées fournies.
+
+Zapphyrr: ok, niquel. Je souhaite continuer. Lis mon projet. Je veux afficher La meteo de paris dans la page en bootstrap. Donc en gros, comment je veux proceder, cest, dans un rectangle, afficher à gauche le logo de la situation du ciel, disponible à la key weather "weather":[{"description":"clear sky","icon":"01n","id":800,"main":"Clear"}]. Ensuite, la temperature à droite, la key dispnible à main puis à temp : "main":{"feels_like":22.34,"grnd_level":1009,"humidity":49,"pressure":1019,"sea_level":1019,"temp":22.73,"temp_max":23.41,"temp_min":20.6}
+Et enfin, en haut de ce meme rectangle, je souhaite le nom de la ville à gauche ainsi que l'heure actuel, les deux keys disponible à "name":"Paris" et pour l'heure, je ne le trouve pas sur le json, utilise l'heure actuel
+
+GitHub Copilot: Voici comment tu peux afficher la météo de Paris dans une page Flask avec Bootstrap, selon tes spécifications :
+
+````python
+from flask import Flask, render_template
+import requests
+from datetime import datetime
+
+app = Flask(__name__)
+
+API_KEY = "VOTRE_API_KEY"
+
+@app.route('/')
+def meteo_paris():
+    lat, lon = 48.85, 2.35
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+
+    city = data.get("name", "Paris")
+    temp = data["main"]["temp"]
+    icon = data["weather"][0]["icon"]
+    description = data["weather"][0]["description"]
+    now = datetime.now().strftime("%H:%M")
+
+    return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+````
+
+Crée ensuite le fichier de template Bootstrap :
+
+````html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Météo Paris</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-bold">{{ city }}</span>
+                <span>{{ now }}</span>
+            </div>
+            <div class="card-body d-flex align-items-center">
+                <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="icon" style="width:80px;">
+                <div class="ms-auto text-end">
+                    <h2 class="mb-0">{{ temp }}°C</h2>
+                    <small class="text-muted">{{ description }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+````
+
+**Résumé des étapes :**
+1. Mets ta clé API dans le script Python.
+2. Crée le dossier `templates` et place `meteo.html` dedans.
+3. Lance ton app Flask.
+4. Accède à [http://localhost:5000](http://localhost:5000) pour voir la météo de Paris affichée joliment en Bootstrap.
+
+Similar code found with 2 license types
+
+Zapphyrr: ok, bon, voici le json casi en entier, change moi juste la partie de mon app.py pour qu'il lise correctement le json : 
+{"base":"stations","clouds":{"all":0},"cod":200,"coord":{"lat":48.8535,"lon":2.3484},"dt":1755464407,"id":2968815,"main":{"feels_like":21.95,"grnd_level":1009,"humidity":50,"pressure":1019,"sea_level":1019,"temp":22.35,"temp_max":23.28,"temp_min":20.6},"name":"Paris","sys":{"country":"FR","id":6550,"sunrise":1755405978,"sunset":1755457400,"type":1},"timezone":7200,"visibility":10000,"weather":[{"description":"clear sky","icon":"01n","id":800,"main":"Clear"}],"wind":{"deg":40,"speed"
+
+GitHub Copilot: Voici la partie modifiée de ton `app.py` pour lire correctement le JSON fourni :
+
+````python
+from flask import Flask, render_template
+import requests
+from datetime import datetime
+
+app = Flask(__name__)
+
+API_KEY = "VOTRE_API_KEY"
+
+@app.route('/')
+def meteo_paris():
+    lat, lon = 48.8535, 2.3484
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+
+    city = data.get("name", "Paris")
+    temp = data["main"]["temp"]
+    icon = data["weather"][0]["icon"]
+    description = data["weather"][0]["description"]
+    now = datetime.now().strftime("%H:%M")
+
+    return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+````
+
+**Explications :**
+- Les coordonnées sont mises à jour selon ton JSON.
+- Les clés utilisées (`main`, `weather`, `name`) correspondent à la structure du JSON fourni.
+- L’heure actuelle est calculée avec Python (`datetime.now()`).
+
+Tu peux garder le template HTML proposé précédemment.
+
+Zapphyrr:   File "C:\Users\dimit\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: template/meteo.html
+
+GitHub Copilot: L’erreur `jinja2.exceptions.TemplateNotFound: template/meteo.html` signifie que Flask ne trouve pas le fichier de template.
+
+**Pour corriger :**
+
+1. **Vérifie le nom du dossier** :  
+   Il doit s’appeler exactement `templates` (et non `template`).
+
+2. **Place le fichier `meteo.html` dans ce dossier** :  
+   ```
+   docker/meteo-app/templates/meteo.html
+   ```
+
+3. **Structure attendue :**
+   ```
+   docker/
+     meteo-app/
+       app.py
+       templates/
+         meteo.html
+   ```
+
+4. **Redémarre ton application Flask**.
+
+Flask cherche les templates dans le dossier `templates` situé au même niveau que ton script principal.
+
+Zapphyrr: k, niquel, maintenant, je veux utiliser ma position actuel et l'utiliser sur mon app.py. Je ne sais pas si c'est possible, et, une fois ma position trouvé, utlise la latitude et la longitude, comme tu le sais si bien
+
+GitHub Copilot: Oui, c’est possible !  
+Pour utiliser ta position actuelle, tu dois :
+
+1. **Récupérer la position côté navigateur** (JavaScript, via l’API Geolocation).
+2. **Envoyer la latitude et la longitude au serveur Flask** (par requête GET).
+
+Voici comment faire :
+
+### 1. Modifie ton template HTML pour demander la position
+
+````html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Météo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    window.location.href = `/?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+                });
+            } else {
+                alert("La géolocalisation n'est pas supportée par ce navigateur.");
+            }
+        }
+    </script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <button class="btn btn-primary mb-3" onclick="getLocation()">Utiliser ma position</button>
+        <!-- ...le reste du code météo... -->
+    </div>
+</body>
+</html>
+````
+
+### 2. Modifie ton `app.py` pour utiliser les coordonnées reçues
+
+````python
+from flask import Flask, render_template, request
+import requests
+from datetime import datetime
+
+app = Flask(__name__)
+
+API_KEY = "VOTRE_API_KEY"
+
+@app.route('/')
+def meteo():
+    lat = request.args.get('lat', 48.8535)
+    lon = request.args.get('lon', 2.3484)
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+
+    city = data.get("name", "Paris")
+    temp = data["main"]["temp"]
+    icon = data["weather"][0]["icon"]
+    description = data["weather"][0]["description"]
+    now = datetime.now().strftime("%H:%M")
+
+    return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+````
+
+**Résumé :**
+- Un bouton « Utiliser ma position » récupère ta latitude/longitude et recharge la page avec ces paramètres.
+- Le serveur Flask utilise ces coordonnées pour afficher la météo de ta position réelle.
+
+Zapphyrr: {'cod': '400', 'message': 'Nothing to geocode'}
+
+GitHub Copilot: Ce message d’erreur signifie que l’API OpenWeatherMap n’a pas reçu de coordonnées (`lat` et `lon`) valides dans la requête.
+
+**Causes possibles :**
+- Les paramètres `lat` et `lon` sont manquants ou vides dans l’URL.
+- Le navigateur n’a pas autorisé la géolocalisation.
+
+**Solution :**
+1. **Vérifie que l’URL contient bien `?lat=...&lon=...`**  
+   Exemple :  
+   ```
+   http://localhost:5000/?lat=48.8535&lon=2.3484
+   ```
+
+2. **Dans le template HTML, assure-toi que le bouton appelle bien la fonction JavaScript et que le navigateur autorise la géolocalisation.**
+
+3. **Dans `app.py`, utilise des valeurs par défaut si les paramètres sont absents :**
+
+````python
+# ...existing code...
+lat = request.args.get('lat')
+lon = request.args.get('lon')
+if not lat or not lon:
+    lat, lon = 48.8535, 2.3484  # Paris par défaut
+# ...existing code...
+````
+
+Ainsi, si la géolocalisation échoue, la météo de Paris s’affichera par défaut.
+
+Zapphyrr: ok, lis moi mon app.py, n'y a t'il pas un probleme?
+
+GitHub Copilot: Je ne vois pas ton fichier `app.py` dans ce message.  
+Pour que je puisse le lire et vérifier s’il y a un problème, **copie-colle le contenu de ton `app.py` ici**.  
+Je pourrai alors te donner un avis précis et te proposer des corrections si besoin.
+
+Zapphyrr: ok, vooici mon app.py : 
+from flask import Flask, render_template, request
+import requests
+from datetime import datetime
+
+app = Flask(__name__)
+
+API_KEY = "4ae24fb06000fb1a34688bd82f966924"
+
+@app.route('/')
+def meteo():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+    print(data)
+    city = data["name"]
+    temp = data["main"]["temp"]
+    icon = data["weather"][0]["icon"]
+    description = data["weather"][0]["description"]
+    now = datetime.now().strftime("%H:%M")
+
+    return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000) 
+
+
+ Voici mon meteo. html : 
+
+ <!DOCTYPE html>
+ <html lang="fr">
+ <head>
+     <meta charset="UTF-8">
+     <title>Météo</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <script>
+         function getLocation() {
+             if (navigator.geolocation) {
+                 navigator.geolocation.getCurrentPosition(function(position) {
+                     window.location.href = `/?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+                 });
+             } else {
+                 alert("La géolocalisation n'est pas supportée par ce navigateur.");
+             }
+         }
+     </script>
+ </head>
+ <body class="bg-light">
+     <div class="container mt-5">
+         <div class="card mx-auto" style="max-width: 400px;">
+             <div class="card-header d-flex justify-content-between align-items-center">
+                 <span class="fw-bold">{{ city }}</span>
+                 <span>{{ now }}</span>
+             </div>
+             <div class="card-body d-flex align-items-center">
+                 <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="icon" style="width:80px;">
+                 <div class="ms-auto text-end">
+                     <h2 class="mb-0">{{ temp }}°C</h2>
+                     <small class="text-muted">{{ description }}</small>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </body>
+ </html>
+
+
+
+GitHub Copilot: Oui, il y a un problème potentiel dans ton `app.py` :  
+Si `lat` ou `lon` ne sont pas fournis dans l’URL, l’API OpenWeatherMap retourne une erreur (`Nothing to geocode`).  
+Ton code ne gère pas ce cas, ce qui peut provoquer une erreur ou un crash.
+
+**Correction :**  
+Ajoute une valeur par défaut pour Paris si les coordonnées ne sont pas fournies :
+
+````python
+# ...existing code...
+@app.route('/')
+def meteo():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    if not lat or not lon:
+        lat, lon = 48.8535, 2.3484  # Paris par défaut
+
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+    print(data)
+    city = data.get("name", "Paris")
+    temp = data["main"]["temp"]
+    icon = data["weather"][0]["icon"]
+    description = data["weather"][0]["description"]
+    now = datetime.now().strftime("%H:%M")
+
+    return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
+# ...existing code...
+````
+
+**Pourquoi ?**  
+- Si tu accèdes à `/` sans paramètres, la météo de Paris s’affichera.
+- Si tu utilises le bouton « Utiliser ma position », la météo de ta position s’affichera.
+
+Ton template HTML est correct et fonctionnera avec cette modification.
+
+Zapphyrr: ok, mais je veux fonctionner autrement, je veux faire l'inverse. Si je ne peux pas acceder à ma position, paris s'affichera alors
+
+GitHub Copilot: Voici comment faire :  
+- Tente d’afficher la météo selon la position reçue.
+- Si l’API retourne une erreur (`cod` différent de 200), affiche la météo de Paris à la place.
+
+**Modifie ton `app.py` ainsi :**
+
+````python
+from flask import Flask, render_template, request
+import requests
+from datetime import datetime
+
+app = Flask(__name__)
+
+API_KEY = "4ae24fb06000fb1a34688bd82f966924"
+
+def get_meteo(lat, lon):
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+    return data
+
+@app.route('/')
+def meteo():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+
+    if lat and lon:
+        data = get_meteo(lat, lon)
+        if str(data.get("cod")) != "200":
+            # Si erreur, on affiche Paris
+            data = get_meteo(48.8535, 2.3484)
+    else:
+        data = get_meteo(48.8535, 2.3484)
+
+    city = data.get("name", "Paris")
+    temp = data["main"]["temp"]
+    icon = data["weather"][0]["icon"]
+    description = data["weather"][0]["description"]
+    now = datetime.now().strftime("%H:%M")
+
+    return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+````
+
+**Ainsi :**
+- Si la position est accessible et valide, elle est utilisée.
+- Si la position est inaccessible ou invalide, la météo de Paris s’affiche.
+
+Zapphyrr: voici ce que j'ai :
+voici le lat, lon: None None
+
+
+
+GitHub Copilot: Ton message `voici le lat, lon: None None` indique que les paramètres `lat` et `lon` ne sont pas transmis dans l’URL lors de l’accès à la page.
+
+**Pourquoi ?**
+- Si tu accèdes à `/` directement (sans bouton ou paramètres), `lat` et `lon` sont absents, donc `None`.
+- C’est normal : ton code affiche alors la météo de Paris par défaut.
+
+**Pour tester la géolocalisation :**
+- Clique sur le bouton « Utiliser ma position » dans ta page web.
+- Cela doit rediriger vers une URL comme :  
+  ```
+  http://localhost:5000/?lat=48.85&lon=2.35
+  ```
+- Ton code affichera alors la météo de ta position.
+
+**Résumé :**  
+Ton code fonctionne comme prévu :  
+- Sans position, Paris s’affiche.
+- Avec position, la météo de ta position s’affiche (si autorisée par le navigateur).
+
+Zapphyrr: nan, je veux utiliser ma position automatiquement, je veux qu'avec l'url fourni à /, cela me demande ma position, et remplisse automatiquement mon lat et long, exactement comme tu as fais pour meteo.html : 
+
+
+GitHub Copilot: Pour demander automatiquement la position et rediriger vers `/` avec les coordonnées dès l’ouverture de la page, ajoute ce script dans ton `meteo.html` :
+
+````html
+<script>
+    window.onload = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                window.location.href = `/?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+            });
+        }
+    }
+</script>
+````
+
+Place ce script dans la balise `<head>` ou juste avant `</body>`.  
+Ainsi, dès que tu accèdes à `/`, le navigateur demande ta position et recharge la page avec `lat` et `lon` automatiquement.
+
+Zapphyrr: ok, nouveau probleme, cela rafraichis ma page toutes les demi secondes, je ne veux pas que ca fasse ca, je veux juste qu'il l'affiche une fois, au rafraichissement de la page. Voici mon code en piece jointe : 
+
+
+GitHub Copilot: Le problème vient du fait que ton script s’exécute **à chaque chargement de la page**, même après la redirection, ce qui crée une boucle infinie.
+
+**Solution :**  
+Ajoute une condition pour ne demander la géolocalisation **que si les paramètres `lat` et `lon` ne sont pas déjà présents dans l’URL**.
+
+Voici comment modifier ton script :
+
+````html
+<script>
+    window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has('lat') || !params.has('lon')) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    window.location.href = `/?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+                });
+            }
+        }
+    }
+</script>
+````
+
+**Avec cette modification :**
+- La géolocalisation ne sera demandée qu’une seule fois, lors du premier accès à `/`.
+- Après la redirection, la page ne bouclera plus.
+
+Zapphyrr: ok, je veux cmmencer le vif du sujet, je veux scraper un site qui s'appelle wowhead, est-ce que j'ai le droit ?
+
+GitHub Copilot: Wowhead **interdit le scraping** dans ses conditions d’utilisation.  
+Leur contenu est protégé et ils disposent d’API et de flux officiels pour certains usages.
+
+**En résumé :**
+- Tu n’as pas le droit de scraper Wowhead sans autorisation.
+- Utilise leurs API ou outils officiels si disponibles.
+- Scraper sans accord peut entraîner un blocage ou des poursuites.
+
+Toujours vérifier les CGU avant de scraper un site.
+
+Zapphyrr: ok, ou se trouve les CGU de wowhead
+
+GitHub Copilot: Les CGU (Conditions Générales d’Utilisation) de Wowhead se trouvent généralement en bas de leur site, dans le pied de page, sous le lien **"Terms of Use"** ou **"Privacy Policy"**.
+
+Lien direct :  
+[https://www.wowhead.com/terms-of-use](https://www.wowhead.com/terms-of-use)
+
+Tu peux consulter ce lien pour connaître leurs règles concernant l’utilisation des données et le scraping.
+
+Zapphyrr: c'est quoi le terme, si ce n'est pas deja le cas, de scraping en anglais ?
+
+GitHub Copilot: Le terme anglais pour "scraping" est **web scraping**.  
+Dans les CGU, tu peux aussi trouver les mots :  
+- **scrape**
+- **scraping**
+- **crawler**
+- **bot**
+- **automated access**
+
+Ils désignent tous l’extraction automatisée de données depuis un site web.
+
+Zapphyrr: tiens, examine tout ca, et dis moi si c'est illégal : 
+fanbyte
+fuel your obsessions
+ZAM End User License Agreement and Terms of Service
+
+Last Updated: May 14th, 2025
+
+Please read this ZAM End User License Agreement and Terms of Service ("EULA”) carefully because it is a binding contract between you, an individual user ("you”) and ZAM Network, LLC ("ZAM,” "we,” or "us”) governing your use of the websites made available by ZAM that reference this EULA, including websites located at zam.com, www.wowhead.com, fanbyte.com, hearthstonetopdecks.com, or any other websites, pages, features, or content we own or operate ("Websites”), browser extensions made available by ZAM ("Browser Extensions”), application programming interfaces made available by ZAM ("APIs”), and mobile applications made available by ZAM that reference this EULA ("Apps”) (the Websites, APIs, Browser Extensions, and Apps are, collectively, the "Service”).
+
+BY ACCESSING THE WEBSITES OR APIS, INSTALLING THE BROWSER EXTENSIONS, OR APPS, OR OTHERWISE ACCESSING OR USING THE SERVICE, YOU AGREE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THIS EULA. IF YOU ARE USING THE SERVICE ON BEHALF OF A COMPANY, ENTITY, OR ORGANIZATION, THEN YOU REPRESENT AND WARRANT THAT YOU: (i) ARE AN AUTHORIZED REPRESENTATIVE OF THAT ENTITY WITH THE AUTHORITY TO BIND THAT ENTITY TO THIS EULA; AND (ii) AGREE TO BE BOUND BY THIS EULA ON BEHALF OF THAT ENTITY. IF YOU DO NOT AGREE, THEN YOU MAY NOT USE THE SERVICE.
+
+IMPORTANT NOTICE REGARDING ARBITRATION: WHEN YOU AGREE TO THIS EULA YOU ARE AGREEING (WITH LIMITED EXCEPTION) TO RESOLVE ANY DISPUTE BETWEEN YOU AND ZAM THROUGH BINDING, INDIVIDUAL ARBITRATION RATHER THAN IN COURT. PLEASE REVIEW CAREFULLY SECTION 23 "DISPUTE RESOLUTION” BELOW FOR DETAILS REGARDING ARBITRATION. THIS EULA ALSO INCLUDES A LIMITATION ON DAMAGES THAT YOU CAN COLLECT FROM US THAT MAY ARISE OUT OF YOUR USE OF THE SERVICE.
+
+SEIZURE WARNING: The Services may contain flashing lights, images, and other luminous stimulations which may induce epileptic seizures in certain individuals. If you have an epileptic condition, please consult your doctor before using the Services. If you experience dizziness, altered vision, eye or muscle twitches, loss of awareness, disorientation, any involuntary movement, or convulsions while using the Services, please immediately discontinue using the Services and consult your doctor.
+
+To have a copy of this EULA and our Privacy Policy found at https://corp.fanbyte.com/legal/privacy ("Privacy Policy”) sent to you, contact us using the applicable contact information listed in Section 26.
+
+The parties hereby agree as follows:
+
+Section 1. ZAM Service Overview
+
+The Service is a collection of community forums, databases, articles, and Apps relating to online video games, and related Browser Extensions and APIs.
+
+Section 2. Summary of Material Terms
+
+As provided in greater detail in this EULA (and without limiting the express language of this EULA), you acknowledge that:
+
+by using the Service, you agree to be bound by this EULA;
+the APIs, Browser Extensions, and Apps are licensed, not sold, and you may use them only as set forth in this EULA;
+use of the Service may be subject to separate third party terms of service and fees, which you agree to comply with, including, without limitation, your mobile network operator’s (the "Carrier”) terms of service and fees, including fees for data usage, which are your sole responsibility;
+any personal data you provide to us will be processed in accordance with the Privacy Policy (which, along with this EULA, also governs your use of the Service) set out at https://corp.fanbyte.com/legal/privacy, and you are responsible for reviewing the Privacy Policy;
+the Service is provided "as is” without any warranties, and ZAM’s liability to you is limited to the extent permitted by law;
+access to the Service, or to certain features of the Service, may require you to pay fees, and may provide you the option to activate recurring automatic payments for those fees. Before you pay any fees, including before activating or updating any recurring payments, you will have an opportunity to review them before you accept them; and
+if you are using the Apps on an iOS-based device, then you agree to and acknowledge the "ZAM Mobile Applications and Notice Regarding Apple,” in Section 27.
+Section 3. Eligibility
+
+You may use the Services only if you are at least 13 years of age (or such other minimum age at which you can provide consent to data processing under the laws of your territory), and not otherwise barred from using the Services under applicable law.
+
+Section 4. Scope of License to Users
+
+License Grant to You
+
+The ZAM-created and owned Service is licensed, not sold, to you for use only under the terms of this EULA. Subject to your complete and ongoing compliance with the terms and conditions of this EULA, ZAM hereby grants you a personal, limited, revocable, non-transferable, non-exclusive, non-commercial, non-sublicensable license to: (a) download, install, and use the Browser Extensions on compatible authorized devices that you own or control; (b) access and use the APIs, and send and receive calls from the APIs, in the manner described by any accompanying documentation; (c) use the Apps on compatible, authorized devices that you own or control; and (d) access and use the Websites (including all content therein); in each case solely for your own internal use or for the entity on whose behalf you are authorized to act. Any other use of the Service and its components, other than as expressly permitted herein, is strictly prohibited.
+
+License Limitations
+
+You may not modify, alter, reproduce, or distribute the Service. You may not directly rent, lease, lend, sell, redistribute, or sublicense the Service. You may not copy, decipher, decompile, reverse engineer, disassemble, attempt to derive the source code of, modify, or create derivative works of any portion of the Service, any updates, or any part thereof (except as and only to the extent any foregoing restriction is prohibited by applicable law or the terms of any Third Party Service (as defined below)), nor attempt to disable or circumvent any security or other technological measure designed to protect the Service or any content available through the Service. You may not use the Service, or any portion thereof, for any commercial purpose or for the benefit of any third party or in any manner not permitted by this EULA. If you breach these license restrictions, or otherwise exceed the scope of the licenses granted in this EULA, then you may be subject to prosecution and damages, as well as liability for infringement of intellectual property rights, and denial of access to the Service.
+
+Applicability to Updates
+
+This EULA governs any updates provided to you by ZAM that replace or supplement the Service, unless the upgrade is accompanied by a separate license or revised EULA, in which case that license or revised EULA will govern.
+
+Section 5. Accounts and Registration
+
+To access most features of the Service, you may need to register for an account. When you register for an account, you may be required to provide us with some information about yourself, such as your email address or other contact information. To find out more about how we collect, share, or use your information, please see our Privacy Policy located at https://corp.fanbyte.com/legal/privacy. You represent that the information you provide us is accurate, complete, and current, and you will keep it accurate and up-to-date at all times. If you do not do so, we may have to suspend or terminate your account. When you register, you will be asked to provide a password. You are solely responsible for maintaining the confidentiality of your account and password, and you accept responsibility for all activities that occur under your account. If you have reason to believe that your account is no longer secure, you must immediately notify us using the applicable contact information listed in Section 26. The Service may allow you to register and log in using sign-on functionality provided by social networks or third party sites or services, such as Facebook, Blizzard, or Steam. You agree to abide by the social networks’ or third parties’ terms and conditions applicable to you.
+
+Section 6. User Content
+
+User Content Generally
+
+Certain features of the Service may permit users to upload content to the Service, including comments, photos, video, images, data, text, screenshots, in-game data, and other types of works ("User Content”) and to publish User Content on the Service. You retain copyright and any other proprietary rights that you may hold in the User Content that you post to the Service.
+
+Limited License Grant to ZAM
+
+By posting or publishing User Content, to the fullest extent permitted under applicable law, you grant ZAM a worldwide, perpetual, non-exclusive, royalty-free, fully paid right and license (with the right to sublicense) to host, store, transfer, publicly display, publicly perform, reproduce, modify, create derivative works based upon, distribute, and otherwise use or commercially exploit your User Content, in whole or in part, in any and all media or distribution methods (now known or later developed) in connection with operating and providing the Service.
+
+Limited License Grant to Other Users
+
+By posting or sharing User Content with other users of the Service, to the fullest extent permitted under applicable law, you grant those users a non-exclusive license to access and use that User Content as permitted by this EULA and the functionality of the Service.
+
+User Content Representations and Warranties
+
+You are solely responsible for your User Content and the consequences of posting or publishing User Content. By posting or publishing User Content, you affirm, represent, and warrant that:
+
+you are the creator and owner of the User Content, or have the necessary licenses, rights, consents, and permissions to authorize ZAM and users of the Service to exercise the licenses to User Content granted by you in this Section 6, in the manner contemplated by ZAM, the Service, and this EULA; and
+your User Content, and the use of your User Content as contemplated by this EULA, does not and will not: (i) infringe, violate, or misappropriate any third-party right, including any copyright, trademark, patent, trade secret, moral right, privacy right, right of publicity, or any other intellectual property or proprietary right; (ii) slander, defame, libel, or invade the right of privacy, publicity or other property rights of any other person; or (iii) violate (or cause ZAM to violate) any law or regulation.
+Removal of User Content
+
+You can remove your User Content by specifically deleting such User Content via the functionality of the Service. You should know that in certain instances, some of your User Content (such as posts or comments you make) may not be completely removed and copies of your User Content may continue to exist on the Service. To the maximum extent permitted by law, we are not responsible or liable for the removal or deletion of (or the failure to remove or delete) any of your User Content.
+
+User Content Disclaimer
+
+To the fullest extent permitted under applicable law, we are under no obligation to edit or control User Content that you or other users post or publish, and we expressly disclaim any and all liability in connection with User Content. ZAM may, at any time and without prior notice, screen, remove, edit, or block any User Content that in our sole judgment violates this EULA or is otherwise objectionable. You understand that when using the Service you will be exposed to User Content from a variety of sources and acknowledge that User Content may be inaccurate, offensive, indecent, or objectionable. You agree to waive, and do waive, any legal or equitable right or remedy you have or may have against ZAM with respect to User Content.
+
+Section 7. Digital Millennium Copyright Act
+
+DMCA Notification
+
+ZAM respects copyright law and expects its users to do the same. It is ZAM’s policy to terminate in appropriate circumstances account holders who repeatedly infringe or are believed to be repeatedly infringing the rights of copyright holders. Please see ZAM’s Copyright Policy at https://corp.fanbyte.com/legal/copyright, for further information.
+
+Section 8. Prohibited Conduct
+
+By using the Service, you agree not to:
+
+use the Service for any illegal purpose or in violation of any local, state, national, or international law;
+violate, or encourage others to violate, any right of a third party, including by infringing or misappropriating any third party intellectual property right;
+post, upload, publish, send, transmit or otherwise distribute any User Content or other content that (a) infringes, misappropriates or violates a third party’s patent, copyright, trademark, trade secret, moral rights or other intellectual property rights, or rights of publicity or privacy; (b) violates, or encourages any conduct that would violate, any applicable law or regulation or would give rise to civil liability; (c) is fraudulent, false, misleading or deceptive; (d) is unlawful, defamatory, libelous, inaccurate, or that ZAM deems to be objectionable, profane, indecent, pornographic, harassing, threatening, embarrassing, hateful, or otherwise inappropriate; (e) promotes discrimination, bigotry, racism, hatred, harassment or harm against any individual or group; (f) is violent or threatening or promotes violence or actions that are threatening to any person or entity; or (g) promotes illegal or harmful activities or substances;
+use, display, mirror or frame the Service or any individual element within the Service, ZAM’s name, any ZAM trademark, logo or other proprietary information, or the layout and design of any page or form contained on a page, without ZAM’s express written consent;
+interfere with security-related features of the Service, including by disabling, avoiding, bypassing, removing, deactivating, impairing, descrambling or circumventing features that prevent or limit use or copying of any content or technological measure implemented by ZAM or any of ZAM’s providers or any other third party (including another user) to protect the Services, or attempting to probe, scan or test the vulnerability of any ZAM system or network or breach any security or authentication measures;
+attempt to reverse engineer, derive source code from, modify, adapt, translate, datamine, decipher, decompile, dissemble, make derivative works based upon the Service or any content contained within the Service;
+attempt to access or search the Service or download content from the Service using any engine, software, tool, agent, device or mechanism (including spiders, robots, crawlers, data mining tools or the like) other than the software and/or search agents provided by ZAM or other generally available third-party web browsers;
+interfere with the operation of the Service or any user’s enjoyment of the Service, including by: (a) uploading or otherwise disseminating any virus, adware, spyware, worm, or other malicious code or overloading, flooding, spamming, or mail-bombing the Service; (b) making any unsolicited offer or advertisement in the form of promotional materials, email, junk mail, spam, chain letters or other form of solicitation to another user of the Service; (c) attempting to collect personal information about another user or third party without consent; or (d) interfering with or disrupting any network, equipment, or server connected to or used to provide the Service, or violating any regulation, policy, or procedure of any network, equipment, or server;
+use any meta tags or other hidden text or metadata utilizing a ZAM trademark, logo URL or product name without ZAM’s express written consent;
+perform any fraudulent activity including impersonating any person or entity, misrepresent your affiliation with any person or entity, claiming a false affiliation, accessing any other account on the Service without permission, or falsifying your age or date of birth;
+sell or otherwise transfer the access granted under this EULA or any Materials (as defined below) or any right or ability to view, access, or use any Material; or
+Forge any TCP/IP packet header or any part of the header information in any email or newsgroup posting, or in any way use the Services to send altered, deceptive or false source-identifying information;
+attempt to do, or assist or permit any third party in doing, any of the acts described in this Section 8.
+ZAM is not obligated to monitor access to or use of the Service or to review or edit any content. However, we have the right to do so for the purpose of operating the Service, to ensure compliance with this EULA and to comply with applicable law or other legal requirements. We have the right to investigate violations of this EULA or conduct that affects the Service. We may also consult and cooperate with law enforcement authorities to prosecute users who violate the law.
+
+Section 9. Third-Party Services, Third Party Fees, and Linked Websites
+
+Access to Third Party Services
+
+The Service may provide you with access to third party websites, databases, networks, servers, information, software, programs, systems, directories, applications, or products or services (collectively, "Third Party Services”). ZAM provides access to such Third Party Services only as a convenience and ZAM does not have or maintain any control over Third Party Services.
+
+Disclaimer of Liability for Third Party Services
+
+Third Party Services may have their own terms of use and privacy policy, and your use of the Service may incur third party fees, such as fees charged by your Carrier for data usage. You are solely responsible for reviewing and complying with any terms of use, privacy policy or other terms governing your use of Third Party Services, and you are solely responsible for all of Third Party Services fees incurred by you for use of the Service. You are solely responsible for taking the precautions necessary to protect yourself from fraud when using Third Party Services, and to protect your computer systems from viruses, worms, Trojan horses, and other harmful or destructive content that may be included on or with any Third Party Services. ZAM disclaims any and all responsibility or liability for any harm resulting from your use of Third Party Services, and you hereby irrevocably waive any claim against ZAM with respect to any Third Party Services.
+
+Section 10. Third-Party Software
+
+Software you download in connection with the Service consists of a package of components that may include certain third party software ("Third Party Software”) provided under separate license terms (the "Third Party Terms”). Your use of the Third Party Software in conjunction with the Service in a manner consistent with this EULA is permitted, however, you may have broader rights under the applicable Third Party Terms, and nothing in this EULA is intended to impose further restrictions on your use of the Third Party Software.
+
+Section 11. Fees; Payment Terms
+
+Access to the Service, or to certain features of the Service, may require you to pay fees, and may provide you the option to activate recurring automatic payments for those fees. For details of the payment options and relevant paid Services offered to you, please see the description here and FAQ here. Before you pay any fees, including before activating or updating any recurring payments, you will have an opportunity to review the fees that you will be charged before you accept them. If you activate or update recurring payments through the Service, you authorize ZAM to periodically charge, on a going-forward basis and until cancellation, all accrued sums on or before the payment due date for the accrued sums plus any applicable taxes, and other charges, using the Payment Information (defined below) you have provided. ZAM will send you a reminder of such recurring payment with the then-current and applicable fees in accordance with applicable law. Recurring payments will continue until cancelled by you or we terminate your access to or use of the Service in accordance with this EULA. You may cancel recurring charges at any time via the functionality of the Service (see instructions here) or by emailing ZAM directly at the applicable contact information listed in Section 26. It may take up to 10 business days for the update or cancellation to take effect. We will send you a reminder via email about your upcoming auto-renewal and note the date you will need to cancel the auto-renewal to avoid further being charged. You will be responsible for all accrued sums (plus any applicable taxes and other charges) incurred for the then-current subscription period. If you cancel, your right to use the Services will continue until the end of your then current subscription period and will then terminate without further charges.
+
+Whether you make a one-time payment of fees or active or update recurring payments through the Service (each, a "Transaction”), you expressly authorize us (or our third party payment processor) to charge you for such Transaction. Unless otherwise agreed, ZAM accepts credit cards through our third party payment processor. We may ask you to supply additional information relevant to your Transaction, including your credit card number, the expiration date of your credit card and your email and postal addresses for billing and notification (such information, "Payment Information”). You represent and warrant that you have the legal right to use all payment method(s) represented by any such Payment Information. When you initiate a Transaction, you thereby authorize ZAM to provide your payment details to our third party payment processor so we can complete your Transaction and to charge your payment method for the type of Transaction you have selected (plus any applicable taxes and other charges). You may need to provide additional information to verify your identity before completing your Transaction (such information is included within the definition of Payment Information). By initiating a Transaction, you agree to the pricing, payment and billing policies applicable to such fees and charges, as posted or otherwise communicated to you.  All fees are in U.S. dollars and are non-refundable, except as expressly provided in this EULA. If ZAM changes the fees for the Service, including by adding additional fees or charges, you will be provided advance notice of those changes and the opportunity to accept the changes. If you do not accept the changes, ZAM may discontinue providing the Service to you.
+
+Section 12. Termination of Use; Discontinuation and Modification of the Service
+
+You may terminate or delete your account at any time upon request by contacting customer service using the applicable contact information listed in Section 26. If you elect to delete your account, please see our Privacy Policy for what we will do with your data. If you terminate or delete your account, you remain obligated to pay all outstanding fees, if any, incurred prior to termination relating to your use of the Service. If you violate any provision of this EULA, your permission from us to use the Service terminates automatically. To the fullest extent permitted under applicable law, ZAM may terminate your user account on the Service or suspend or terminate your access to the Service at any time for any reason or no reason, with or without notice. We also reserve the right to modify or discontinue all or any part of the Service at any time in our sole discretion, without notice. We expressly disclaim all liability for any change to the Service or any suspension or termination of your access to or use of the Service.
+
+Upon any termination, discontinuation or cancellation of the Services or your account, Sections 6 through 9, 11, 12 through 25, and 27, along with the Privacy Policy, will survive.
+
+Section 13. Privacy Policy; Additional Terms
+
+Your use of the Service is subject to the Privacy Policy and the Privacy Policy is hereby incorporated by reference into this EULA. By using the Service, you agree that you have read, understood, and agree to the data collection, use, and disclosure provisions set forth in the Privacy Policy.
+
+Consent to Use of Data
+
+You agree that ZAM may collect and use technical data and related information, including, but not limited to, UDID, and other technical information about your device, system, application software, and peripherals, that is gathered to facilitate the provision of software updates, product support, and other services to you (if any) related to the Service, and to anonymously track and report your activity inside of the Service, including for analytics purposes. Please see the Privacy Policy for more details regarding the information ZAM collects, and how it uses that information.
+
+Additional Terms
+
+Your use of the Service is subject to all additional terms, policies, rules, or guidelines applicable to the Service or certain features of the Service that we may post on or link to from the Service ("Additional Terms”), such as end-user license agreements for any downloadable software applications, or rules applicable to a particular feature or content on the Service. All Additional Terms are incorporated by this reference into, and made a part of, this EULA.
+
+Section 14. Modification of this EULA
+
+We reserve the right, at our sole discretion, to change or update this EULA on a going-forward basis at any time. Please check this EULA periodically for changes. If you continue to use the Services after we have posted an updated EULA it means that you accept and agree to the changes. If you don’t agree to be bound by the changes, you may not use the Services anymore. Disputes arising under this EULA will be resolved in accordance with the version of this EULA in effect at the time the dispute arose. Because the Service is evolving over time, we may change or discontinue all or any part of the Service, at any time and without notice to you, at our sole discretion.
+
+Section 15. Ownership; Proprietary Rights
+
+The Service is owned and operated by ZAM. The visual interfaces, graphics, design, compilation, information, data, computer code (including source code or object code), products, software, services, and all other content and elements of the Service ("Materials”) provided by ZAM are protected by intellectual property and other laws. All Materials are the property of ZAM or our third-party licensors. Except as expressly authorized by ZAM, you may not make use of the Materials. ZAM reserves all rights not granted expressly in this EULA. You acknowledge that the Service is protected by copyright, trademark, and other laws of the U.S. and foreign countries. You agree not to remove, alter or obscure any copyright, trademark, service mark or other proprietary rights notices incorporated in or accompanying the Service.
+
+Section 16. Feedback
+
+If you choose to provide input, feedback, comments, ideas, proposals and suggestions regarding problems with or proposed modifications or improvements to the Service ("Feedback”), then you hereby grant ZAM an unrestricted, worldwide, perpetual, irrevocable, non-exclusive, fully-paid, royalty-free right to exploit the Feedback in any manner and for any purpose without compensation to you.
+
+Section 17. Indemnity
+
+To the fullest extent permitted under applicable law, you are responsible for your use of the Service, and you will defend and indemnify ZAM and its officers, directors, employees, consultants, affiliates, subsidiaries and agents (together, the "ZAM Entities”) from and against every claim, liability, damage, loss, and expense, including reasonable attorneys’ fees and costs, arising out of or in any way connected with: (a) your access to, and use of, the Service; (b) your User Content; (c) your violation of any portion of this EULA, any representation, warranty, or agreement referenced in this EULA, or any applicable law or regulation; (d) your violation of any third-party right, including any intellectual property right or publicity, confidentiality, other property, or privacy right; or (e) any dispute or issue between you and any third party. We reserve the right, at our own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you (without limiting your indemnification obligations with respect to that matter), and in that case, you agree to cooperate with our defense of that claim.
+
+Section 18. Disclaimers; No Warranties
+
+THE SERVICE AND ALL MATERIALS, USER CONTENT AND THIRD PARTY SOFTWARE AVAILABLE THROUGH THE SERVICE ARE PROVIDED "AS IS” AND ON AN "AS AVAILABLE” BASIS. TO THE FULLEST EXTENT PERMITTED UNDER APPLICABLE LAW, THE ZAM ENTITIES DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, RELATING TO THE SERVICE AND ALL MATERIALS, USER CONTENT, THIRD PARTY SOFTWARE AVAILABLE THROUGH THE SERVICE, INCLUDING: (A) ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, QUIET ENJOYMENT, OR NON-INFRINGEMENT; AND (B) ANY WARRANTY ARISING OUT OF COURSE OF DEALING, USAGE, OR TRADE. THE ZAM ENTITIES DO NOT WARRANT THAT THE SERVICE OR ANY PORTION OF THE SERVICE, OR ANY MATERIALS, USER CONTENT OR THIRD PARTY SOFTWARE OFFERED THROUGH THE SERVICE, WILL BE UNINTERRUPTED, SECURE, OR FREE OF ERRORS, VIRUSES, OR OTHER HARMFUL COMPONENTS, AND DO NOT WARRANT THAT ANY OF THOSE ISSUES WILL BE CORRECTED.  WE MAKE NO WARRANTY REGARDING THE QUALITY, ACCURACY, TIMELINESS, TRUTHFULNESS, COMPLETENESS OR RELIABILITY OF ANY INFORMATION OR CONTENT ON THE SERVICE.
+
+TO THE FULLEST EXTENT PERMITTED UNDER APPLICABLE LAW, NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM THE SERVICE OR ANY MATERIALS OR USER CONTENT OR THIRD PARTY SOFTWARE AVAILABLE THROUGH THE SERVICE WILL CREATE ANY WARRANTY REGARDING ANY OF THE ZAM ENTITIES OR THE SERVICE THAT IS NOT EXPRESSLY STATED IN THIS EULA. YOU ASSUME ALL RISK FOR ANY DAMAGE THAT MAY RESULT FROM YOUR USE OF OR ACCESS TO THE SERVICE, YOUR DEALING WITH ANY OTHER SERVICE USER, AND ANY MATERIALS OR USER CONTENT OR THIRD PARTY SOFTWARE AVAILABLE THROUGH THE SERVICE. YOU UNDERSTAND AND AGREE THAT YOU USE THE SERVICE, AND USE, ACCESS, DOWNLOAD, OR OTHERWISE OBTAIN MATERIALS OR USER CONTENT OR THIRD PARTY SOFTWARE THROUGH THE SERVICE AND ANY ASSOCIATED SITES OR SERVICES, AT YOUR OWN DISCRETION AND RISK, AND THAT YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR PROPERTY, OR THE LOSS OF DATA THAT RESULTS FROM THE USE OF THE SERVICE OR THE DOWNLOAD OR USE OF THAT MATERIAL, USER CONTENT OR THIRD PARTY SOFTWARE.
+
+SOME JURISDICTIONS MAY PROHIBIT A DISCLAIMER OF WARRANTIES AND YOU MAY HAVE OTHER RIGHTS THAT VARY FROM JURISDICTION TO JURISDICTION.
+
+We make no claims that any Material or content within the Service therein is appropriate or may be downloaded outside of the U.S. or outside the country where such Material or any content was produced. Access to the Material or any other content within the Service may not be legal in certain countries or for certain persons. If you access any Material or other content from outside of the U.S., you do so at your own risk and are responsible for compliance with the laws of your jurisdiction. You agree to comply with: (i) all local rules regarding user conduct on the Internet and acceptable content; and (ii) all applicable laws regarding the downloading and/or transmission of technical data and other material from or to the U.S. and the country in which you are located.
+
+Section 19. Limitation of Liability
+
+TO THE FULLEST EXTENT PERMITTED UNDER APPLICABLE LAW, IN NO EVENT WILL THE ZAM ENTITIES BE LIABLE TO YOU FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY OR PUNITIVE DAMAGES (INCLUDING DAMAGES FOR LOSS OF PROFITS, LOST REVENUE, LOST SAVINGS, LOST BUSINESS OPPORTUNITY, LOSS OF DATA OR GOODWILL, OR ANY OTHER INTANGIBLE LOSS; SERVICE INTERRUPTION, COMPUTER DAMAGE OR SYSTEM FAILURE OR THE COST OF SUBSTITUTE SERVICES OF ANY KIND) ARISING OUT OF OR RELATING TO YOUR ACCESS TO OR USE OF, OR YOUR INABILITY TO ACCESS OR USE, THE SERVICE OR ANY MATERIALS, USER CONTENT OR THIRD PARTY SOFTWARE ON THE SERVICE, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY, STATUTE, OR ANY OTHER LEGAL THEORY, AND WHETHER OR NOT ANY ZAM ENTITY HAS BEEN INFORMED OF THE POSSIBILITY OF DAMAGE, EVEN IF A LIMITED REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.
+
+THE AGGREGATE LIABILITY OF THE ZAM ENTITIES TO YOU FOR ALL CLAIMS ARISING OUT OF OR RELATING TO THE USE OF OR ANY INABILITY TO USE ANY PORTION OF THE SERVICE OR OTHERWISE UNDER THIS EULA, WHETHER IN CONTRACT, TORT, OR OTHERWISE, TO THE FULLEST EXTENT PERMITTED UNDER APPLICABLE LAW, IS LIMITED TO THE GREATER OF: (A) THE AMOUNTS YOU PAID OR PAYABLE BY YOU TO ZAM FOR ACCESS TO AND USE OF THE SERVICE IN THE 12 MONTHS PRIOR TO THE EVENT(S) GIVING RISE TO THE CLAIM; OR (B) ONE HUNDRED DOLLARS ($100) IF YOU HAVE NOT HAD ANY PAYMENT OBLIGATIONS TO ZAM, AS APPLICABLE.
+
+SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES. ACCORDINGLY, THE ABOVE LIMITATION MAY NOT APPLY TO YOU.
+
+EACH PROVISION OF THIS EULA THAT PROVIDES FOR A LIMITATION OF LIABILITY, DISCLAIMER OF WARRANTIES, OR EXCLUSION OF DAMAGES IS INTENDED TO AND DOES ALLOCATE THE RISKS BETWEEN THE PARTIES UNDER THIS EULA. THIS ALLOCATION IS AN ESSENTIAL ELEMENT OF THE BASIS OF THE BARGAIN BETWEEN THE PARTIES. EACH OF THESE PROVISIONS IS SEVERABLE AND INDEPENDENT OF ALL OTHER PROVISIONS OF THIS EULA. THE LIMITATIONS IN THIS SECTION 19 WILL APPLY EVEN IF ANY LIMITED REMEDY FAILS OF ITS ESSENTIAL PURPOSE.
+
+Section 20. Third Party Disputes
+
+ZAM IS NOT AFFILIATED WITH ANY CARRIER, SERVICE PROVIDER, OR THIRD PARTY SERVICE, AND ANY DISPUTE YOU HAVE WITH ANY CARRIER, SERVICE PROVIDER, THIRD PARTY SERVICE, OR OTHER THIRD PARTY, INCLUDING, WITHOUT LIMITATION, ANY OTHER USER OF THE SERVICE, IS DIRECTLY BETWEEN YOU AND THAT THIRD PARTY, AND YOU IRREVOCABLY RELEASE ZAM (AND OUR OFFICERS, DIRECTORS, AGENTS, SUBSIDIARIES, JOINT VENTURES AND EMPLOYEES) FROM ANY AND ALL CLAIMS, DEMANDS AND DAMAGES (ACTUAL AND CONSEQUENTIAL) OF EVERY KIND AND NATURE, KNOWN AND UNKNOWN, ARISING OUT OF OR IN ANY WAY CONNECTED WITH THOSE DISPUTES.
+
+Section 21. Governing Law
+
+This EULA, and any action related thereto, will be governed by the Federal Arbitration Act, federal arbitration law and the laws of the State of California without regard to conflict of laws provisions. Except as otherwise expressly set forth in Section 23 "Dispute Resolution and Arbitration” the exclusive jurisdiction for all Disputes (defined below) that you and ZAM are not required to arbitrate will be the state and federal courts located in the Los Angeles County, California and you and ZAM each waive any objection to jurisdiction and venue in such courts.
+
+Section 22. General
+
+This EULA, together with any Additional Terms and the Privacy Policy, is the entire and exclusive understanding and agreement between you and ZAM regarding your use of the Service, and this EULA supersedes and replaces all prior and contemporaneous oral or written understandings or agreements between ZAM and you regarding your use of the Service. You may not assign or transfer this EULA, in whole or in part, by operation of law or otherwise, without our prior written consent. Any attempt by you to assign or transfer this EULA, without such consent, will be null. We may assign this EULA at any time without notice or consent. Subject to the foregoing, this EULA will bind and inure to the benefit of the parties, their successors and permitted assigns. Failure to require performance of any provision will not affect our right to require performance at any other time after that, nor will a waiver by us of any breach or default of this EULA, or any provision of this EULA, be a waiver of any subsequent breach or default or a waiver of the provision itself. Except as expressly set forth in this EULA, the exercise by either party of any of its remedies under this EULA will be without prejudice to its other remedies under this EULA or otherwise. If any part of this EULA is held to be invalid, illegal, or unenforceable by an arbitrator or a court of competent jurisdiction, that provision will be enforced to the maximum extent permissible and the validity, legality, and enforceability of the remaining provisions shall remain in full force and effect. Any notices or other communications provided by ZAM under this EULA will be given: (a) via email; or (b) by posting to the Service. For notices made by email, the date of receipt will be deemed the date on which such notice is transmitted. NOTHING IN THIS EULA WILL AFFECT ANY NON-WAIVABLE STATUTORY RIGHTS THAT APPLY TO YOU.
+
+Section 23. Dispute Resolution and Arbitration
+
+Section 23.1. Mandatory Arbitration of Disputes
+
+We each agree that any dispute, claim or controversy arising out of or relating to this EULA or the breach, termination, enforcement, interpretation or validity thereof or the use of the Services (collectively, "Disputes”) will be resolved solely by binding, individual arbitration and not in a class, representative or consolidated action or proceeding. You and ZAM agree that the U.S. Federal Arbitration Act governs the interpretation and enforcement of this EULA, and that you and ZAM are each waiving the right to a trial by jury or to participate in a class action. This arbitration provision shall survive termination of this EULA.
+
+Section 23.2. Exceptions
+
+As limited exceptions to Section 23.1 above: (i) we both may seek to resolve a Dispute in small claims court if it qualifies; and (ii) we each retain the right to seek injunctive or other equitable relief from a court to prevent (or enjoin) the infringement or misappropriation of our intellectual property rights.
+
+Section 23.3. Conducting Arbitration and Arbitration Rules
+
+The arbitration will be conducted by the American Arbitration Association ("AAA”) under its Consumer Arbitration Rules (the "AAA Rules”) then in effect, except as modified by this EULA. The AAA Rules are available at www.adr.org or by calling 1-800-778-7879. A party who wishes to start arbitration must submit a written Demand for Arbitration to AAA and give notice to the other party as specified in the AAA Rules. The AAA provides a form Demand for Arbitration at www.adr.org. Any arbitration hearings will take place in the county (or parish) where you live, unless we both agree to a different location. The parties agree that the arbitrator shall have exclusive authority to decide all issues relating to the interpretation, applicability, enforceability and scope of this arbitration agreement.
+
+Section 23.4. Arbitration Costs
+
+Payment of all filing, administration and arbitrator fees will be governed by the AAA Rules, and we won’t seek to recover the administration and arbitrator fees we are responsible for paying, unless the arbitrator finds your Dispute frivolous. If we prevail in arbitration we’ll pay all of our attorneys’ fees and costs and won’t seek to recover them from you. If you prevail in arbitration you will be entitled to an award of attorneys’ fees and expenses to the extent provided under applicable law.
+
+Section 23.5. Injunctive and Declaratory Relief
+
+Except as provided in Section 23.2 above, the arbitrator shall determine all issues of liability on the merits of any claim asserted by either party and may award declaratory or injunctive relief only in favor of the individual party seeking relief and only to the extent necessary to provide relief warranted by that party’s individual claim. To the extent that you or we prevail on a claim and seek public injunctive relief (that is, injunctive relief that has the primary purpose and effect of prohibiting unlawful acts that threaten future injury to the public), the entitlement to and extent of such relief must be litigated in a civil court of competent jurisdiction and not in arbitration. The parties agree that litigation of any issues of public injunctive relief shall be stayed pending the outcome of the merits of any individual claims in arbitration.
+
+Section 23.6. Class Action Waiver
+
+YOU AND ZAM AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING. Further, if the parties’ Dispute is resolved through arbitration, the arbitrator may not consolidate another person’s claims with your claims, and may not otherwise preside over any form of a representative or class proceeding. If this specific provision is found to be unenforceable, then the entirety of this Dispute Resolution and Arbitration section shall be null and void.
+
+Section 23.7. Severability
+
+With the exception of any of the provisions in Section 23.6 ("Class Action Waiver”), if an arbitrator or court of competent jurisdiction decides that any part of this EULA is invalid or unenforceable, the other parts of this EULA will still apply.
+
+Section 24. Consent to Electronic Communications
+
+By using the Service, you consent to receiving certain electronic communications from us as further described in our Privacy Policy to the fullest extent permitted under applicable law. You agree that any notices, agreements, disclosures, or other communications that we send to you electronically will satisfy any legal communication requirements, including that those communications be in writing.
+
+By subscribing to our newsletter you agree to receive emails from us. The subscription to our newsletters service is optional. We reserve the sole right to either modify or discontinue the newsletter, at any time with or without notice to you. We will not be liable to you or any third party should we exercise such right. We reserve the sole right to unsubscribe users / visitors from our newsletter service, without notice. We will do so with any subscriber we deem registered with invalid or fake information. We require all subscribers to confirm their email address upon registration. You can opt out of receiving such communications anytime. Please read our Privacy Policy for information on how we collect, use, and disclose information that we collect from you.
+
+Section 25. Promotional Activities
+
+BY PARTICIPATING IN ANY PROMOTIONAL ACTIVITY VIA THE SERVICE, YOU ARE AGREEING TO ANY ADDITIONAL TERMS AND CONDITIONS APPLICABLE TO THE PROMOTIONAL ACTIVITY. User Content submitted in connection with any promotional activity may be retained by ZAM after conclusion of the promotion. ZAM may collect personal information from you when you enter a promotional activity. ZAM will use any information collected in accordance with the Privacy Policy. All participants must observe commercial standards of fair dealing and honesty in fact in participating in promotional activities.
+
+Disclaimer, Release and Limit of Liability
+
+ZAM MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, REGARDING ANY PRIZE OR YOUR PARTICIPATION IN ANY PROMOTIONAL ACTIVITY. BY ENTERING THE PROMOTIONAL ACTIVITY OR BY RECEIVING ANY PRIZE, YOU AGREE TO RELEASE AND HOLD HARMLESS ZAM, AND ITS SUBSIDIARIES, AFFILIATES, SUPPLIERS, DISTRIBUTORS, ADVERTISING/PROMOTION AGENCIES, ALL SOCIAL MEDIA NETWORKS (INCLUDING FACEBOOK AND INSTAGRAM), PRIZE SUPPLIERS, AND ANY OTHER ORGANIZATIONS RELATED TO THE PROMOTIONAL ACTIVITY, AND EACH OF THEIR RESPECTIVE PARENT COMPANIES AND EACH OF THOSE COMPANY’S OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS (COLLECTIVELY, THE "RELEASED PARTIES”) FROM AND AGAINST ANY CLAIM OR CAUSE OF ACTION, injuries, damages, expenses or losses to person or property and/or liabilities of any nature that in any way arise from participation in the promotional activity or acceptance or use of a prize or parts thereof, INCLUDING, BUT NOT LIMITED TO: (I) PERSONAL INJURY, DEATH, OR DAMAGE TO OR LOSS OF PROPERTY, ARISING OUT OF PARTICIPATION IN THE PROMOTIONAL ACTIVITY; (II) THE PRIZE, OR RECEIPT, POSSESSION OR USE OR MISUSE OF ANY PRIZE, OR FROM PARTICIPATION IN THE PROMOTIONAL ACTIVITY; (III) any condition caused by events beyond the Released Parties’ control that may cause the promotional activity to be disrupted or corrupted; or (IV) any printing or typographical errors in any materials associated with the Promotional Activity.
+
+THE RELEASED PARTIES ARE NOT RESPONSIBLE FOR: (A) ANY INCORRECT OR INACCURATE INFORMATION, late, lost, delayed, damaged, postage-due, incomplete, illegible, misdirected or undeliverable entries, responses, or other correspondence, whether by email or postal mail or otherwise, WHETHER CAUSED BY ENTRANTS, PRINTING ERRORS OR BY ANY OF THE EQUIPMENT OR PROGRAMMING ASSOCIATED WITH OR USED IN THE PROMOTION; (B) TECHNICAL FAILURES OF ANY KIND, INCLUDING, BUT NOT LIMITED TO MALFUNCTIONS, INTERRUPTIONS, OR DISCONNECTIONS IN PHONE LINES OR ELECTRICAL, NETWORK, COMPUTER, HARDWARE OR SOFTWARE PROGRAMS; (C) UNAUTHORIZED HUMAN INTERVENTION IN ANY PART OF THE ENTRY PROCESS OR THE PROMOTIONAL ACTIVITY; (D) TECHNICAL OR HUMAN ERROR THAT MAY OCCUR IN THE ADMINISTRATION OF THE PROMOTIONAL ACTIVITY OR THE PROCESSING OF ENTRIES; OR (E) ANY INJURY OR DAMAGE TO PERSONS OR PROPERTY THAT MAY BE CAUSED, DIRECTLY OR INDIRECTLY, IN WHOLE OR IN PART, FROM YOUR (OR ANY OTHER ENTRANT’S) PARTICIPATION IN THE PROMOTIONAL ACTIVITY OR RECEIPT OR USE OR MISUSE OF ANY PRIZE. If for any reason your entry is confirmed to have been erroneously deleted, lost, or otherwise destroyed or corrupted, your sole remedy is another entry in the promotion, except that if it is not possible to award another entry due to discontinuance or completion of the promotion, or any part of it, for any reason, ZAM, at its discretion, may elect to hold a random drawing from among all eligible entries received up to the date of discontinuance for any or all of the prizes offered herein. No more than the stated number of prizes will be awarded. In event that production, technical, programming, or any other reasons cause more than the stated number of prizes as set forth in the applicable terms and conditions to be available or claimed, ZAM reserves the right to award only the stated number of prizes by a random drawing among all legitimate, unawarded, eligible prize claims.
+
+Section 26. Contact Information
+
+The Service is offered by ZAM Network, LLC, located at 12777 West Jefferson Blvd. – Building E, Los Angeles, CA 90066. You may contact us by sending correspondence to that address or by emailing us at the following email addresses:
+
+Site
+
+Contact Email
+
+Zam.com
+
+accounts@zam.com
+
+Wowhead.com
+
+feedback@wowhead.com
+
+Fanbyte.com
+
+accounts@zam.com
+
+Hearthstonetopdecks.com
+
+accounts@zam.com
+
+*.allakhazam.com
+
+accounts@zam.com
+
+All other ZAM sites
+
+accounts@zam.com
+
+Section 27. ZAM Mobile Applications and Notice Regarding Apple
+
+If you comply with the terms and conditions of this EULA, ZAM grants to you a limited, non-exclusive, non-transferable, non-sublicensable license to download and install our Apps on your personal computers, mobile handsets, tablets, and/or other devices and to run the Apps solely for your own personal non-commercial purposes. Except as expressly permitted in this EULA, you may not: (a) copy, modify or create derivative works based on the Apps or the content within the Apps; (b) distribute, transfer, sublicense, lease, lend or rent the Apps to any third party; (c) reverse engineer, decompile or disassemble the Apps (unless applicable law permits, despite this limitation); or (d) make the functionality of the Apps available to multiple users through any means.
+
+If you are using our Apps on an iOS device or acquired any of our Apps from the Apple App Store, the terms of this Section 27 apply. You acknowledge that this EULA is between you and ZAM only, not with Apple, and Apple is not responsible for the Service or its content. Apple has no obligation to furnish any maintenance or support services with respect to the Service. If the Service fails to conform to any applicable warranty, you may notify Apple and Apple will refund any applicable purchase price for the App to you; and, to the maximum extent permitted by applicable law, Apple has no other warranty obligation with respect to the Service. Apple is not responsible for addressing any claim by you or any third party relating to the Service or your possession or use of the Service, including: (i) product liability claims; (ii) any claim that the Service fails to conform to any applicable legal or regulatory requirement; and (iii) claims arising under consumer protection or similar legislation. Apple is not responsible for the investigation, defense, settlement, or discharge of any third party claim that the Service or your possession and use of the Apps infringe that third party’s intellectual property rights. You agree to comply with any applicable third party terms when using the Service. Apple and Apple’s subsidiaries are third party beneficiaries of this Section 27 of this EULA, and upon your acceptance of this EULA, Apple will have the right (and will be deemed to have accepted the right) to enforce this Section 27 of this EULA against you. You hereby represent and warrant that: (1) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a "terrorist supporting” country; and (2) you are not listed on any U.S. Government list of prohibited or restricted parties.
+
+terms of service privacy policy support portal
+
+GitHub Copilot: D’après l’extrait des CGU de Wowhead/ZAM que tu as fourni, **le scraping est interdit**.  
+Voici pourquoi :
+
+- Section 8 (Prohibited Conduct) interdit explicitement :  
+  > "attempt to access or search the Service or download content from the Service using any engine, software, tool, agent, device or mechanism (including spiders, robots, crawlers, data mining tools or the like) other than the software and/or search agents provided by ZAM or other generally available third-party web browsers;"
+
+- Tu ne peux pas utiliser de robots, crawlers, spiders, ou outils de data mining pour accéder ou extraire des données du site, sauf si ZAM fournit un outil ou une API officielle pour cela.
+
+**Conclusion :**  
+Scraper Wowhead sans autorisation enfreint leurs CGU et est donc **illégal**.  
+Utilise uniquement leurs API officielles ou outils fournis par ZAM pour accéder aux données.
+
+Zapphyrr: ok, ici c'est quel type d'api, rest ? 
+from flask import Flask, render_template, request
+import requests
+from datetime import datetime
+
+app = Flask(__name__)
+
+API_KEY = "4ae24fb06000fb1a34688bd82f966924"
+
+def get_meteo(lat, lon):
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+    return data
+
+@app.route('/')
+def meteo():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    print("voici le lat, lon:", lat, lon)
+    if lat and lon:
+        data = get_meteo(lat, lon)
+        if str(data.get("cod")) != "200":
+            # Si erreur, on affiche Paris
+            data = get_meteo(48.8535, 2.3484)
+    else:
+        data = get_meteo(48.8535, 2.3484)
+
+    city = data["name"]
+    temp = data["main"]["temp"]
+    icon = data["weather"][0]["icon"]
+    description = data["weather"][0]["description"]
+    now = datetime.now().strftime("%H:%M")
+
+    return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+GitHub Copilot: Oui, l’API utilisée ici (OpenWeatherMap) est une **API REST**.
+
+- Elle fonctionne via des requêtes HTTP (GET).
+- Les données sont retournées au format JSON.
+- Tu envoies des paramètres dans l’URL (`lat`, `lon`, `appid`, etc.).
+
+C’est typique d’une API RESTful.
+
+Zapphyrr: ok, retour sur wowhead, comment je peux utiliser leur api?
+
+GitHub Copilot: Wowhead ne propose **pas d’API publique officielle** pour accéder à toutes ses données.  
+Cependant, il existe :
+
+- Des flux RSS pour certaines actualités.
+- Des outils communautaires ou des API non officielles (souvent limités ou risqués à utiliser).
+- Tu peux contacter Wowhead ([feedback@wowhead.com](mailto:feedback@wowhead.com)) pour demander un accès ou des informations sur une API.
+
+**Résumé :**  
+Tu dois vérifier sur leur site ou les contacter directement.  
+N’utilise pas d’API non officielle ou de scraping, cela reste interdit par leurs CGU.
+
+Zapphyrr: reli cette page. Je crois que je peux avec leur truc "zam" : 
+https://corp.fanbyte.com/legal/terms
+
+GitHub Copilot: Après relecture de la page [https://corp.fanbyte.com/legal/terms](https://corp.fanbyte.com/legal/terms), voici ce qu’il en ressort :
+
+- **Tu peux utiliser les APIs de ZAM/Wowhead** **uniquement** « in the manner described by any accompanying documentation » (voir Section 4).
+- Tu dois respecter toutes les limitations et conditions d’utilisation de l’API.
+- **Tout accès automatisé au site (scraping, crawling, etc.) est interdit** sauf via les APIs ou outils expressément fournis par ZAM.
+
+**En résumé :**  
+Tu as le droit d’utiliser l’API officielle de ZAM/Wowhead **si elle est documentée et accessible**.  
+Tu n’as pas le droit de scraper le site ou d’utiliser des outils non autorisés.
+
+**Conseil :**  
+Cherche la documentation officielle de l’API ZAM/Wowhead.  
+Si tu ne la trouves pas, contacte leur support pour demander l’accès ou des précisions.
+
+Zapphyrr: ok, y a t'il moyen que toi tu puisses me fournir l'api zam ?
+
+GitHub Copilot: Je n’ai pas accès à l’API ZAM/Wowhead ni à ses clés ou documentation privée.  
+Pour obtenir l’API, tu dois :
+
+- Chercher une documentation officielle sur le site de ZAM ou Wowhead.
+- Contacter leur support ([feedback@wowhead.com](mailto:feedback@wowhead.com)) pour demander l’accès ou des informations.
+
+Je ne peux pas te fournir d’accès direct ou de clé API privée.
+
+Zapphyrr: ok, je suis entrain d'écrire un mail à wowhead, corrige moi cette partie : 
+Je suis entrain de me lancer sur un projet personnel qui vise à crée un tableau de bord sur ma machine en local lorsque je me connecte sur mon pc, afin de checker instantannement les dernieres news de wowhead, ainsi que d'autres informations qui sont sur wowhead, mais que je souhaite les uitliser sur mon tableau de bord. Ce projet a pour porté uniquement ma personne et je ne compte pas le partager à mes proches ni à le monétiser.
+
+GitHub Copilot: Voici une version corrigée et plus professionnelle :
+
+---
+
+Je souhaite me lancer dans un projet personnel visant à créer un tableau de bord local sur mon ordinateur, afin de consulter instantanément les dernières actualités de Wowhead ainsi que d’autres informations présentes sur votre site. Ce projet est destiné uniquement à un usage personnel : je ne prévois pas de le partager ni de le monétiser.
+
+---
+
+Tu peux ajouter une demande d’accès à leur API ou de conseils pour accéder légalement aux données.
+
+Zapphyrr: Ok, tant pis, changement de plan en attendant leur réponse. Je vais faire ca : 
+5. Gestionnaire de tâches (ToDo app)
+Frontend (React/Vue) + Backend (Flask/Node) + DB, chaque partie dans son conteneur.
+
+
+GitHub Copilot: Excellent choix !  
+Un gestionnaire de tâches (ToDo app) avec :
+
+- **Frontend** : React ou Vue (interface utilisateur)
+- **Backend** : Flask ou Node.js (API REST)
+- **Base de données** : PostgreSQL, MySQL ou MongoDB
+
+Chaque composant dans son propre conteneur Docker.
+
+**Conseil pour démarrer :**
+1. Commence par le backend (API CRUD pour les tâches).
+2. Ajoute le frontend (affichage, ajout, suppression, édition).
+3. Connecte la base de données.
+4. Utilise Docker Compose pour tout orchestrer.
+
+Si tu veux un exemple de structure ou de Dockerfile, demande-moi !
+
+Zapphyrr: Attends. Déjà, c'est quoi ce projet, jai d mal à comprendre
+
+GitHub Copilot: Ce projet est une **application de gestion de tâches** (ToDo app).
+
+**But :**  
+Créer une interface où tu peux ajouter, modifier, supprimer et afficher des tâches à faire.
+
+**Architecture :**
+- **Frontend** (React ou Vue) :  
+  Affiche la liste des tâches, permet d’en ajouter ou d’en supprimer.
+- **Backend** (Flask ou Node.js) :  
+  Fournit une API pour gérer les tâches (ajouter, lire, modifier, supprimer).
+- **Base de données** :  
+  Stocke les tâches.
+
+**Docker :**  
+Chaque partie (frontend, backend, base de données) tourne dans son propre conteneur Docker, pour faciliter le développement et le déploiement.
+
+**En résumé :**  
+C’est une appli web pour organiser tes tâches, découpée en plusieurs composants indépendants, chacun dans un conteneur.
+
+Zapphyrr: ok c'est partisL Autant commencer par le back alors, via API REST/CRUD, comme c'est le plus polyvalent, ou ce sera pareil partout, aide moi à le crée
+
+GitHub Copilot: Voici un exemple simple d’API REST/CRUD pour un gestionnaire de tâches avec **Flask** et **SQLite**.
+
+````python
+from flask import Flask, request, jsonify
+import sqlite3
+
+app = Flask(__name__)
+
+def get_db():
+    conn = sqlite3.connect('tasks.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+@app.before_first_request
+def init_db():
+    db = get_db()
+    db.execute('''
+        CREATE TABLE IF NOT EXISTS tasks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            done BOOLEAN NOT NULL DEFAULT 0
+        )
+    ''')
+    db.commit()
+    db.close()
+
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    db = get_db()
+    tasks = db.execute('SELECT * FROM tasks').fetchall()
+    db.close()
+    return jsonify([dict(task) for task in tasks])
+
+@app.route('/tasks', methods=['POST'])
+def add_task():
+    data = request.json
+    db = get_db()
+    db.execute('INSERT INTO tasks (title, done) VALUES (?, ?)', (data['title'], False))
+    db.commit()
+    db.close()
+    return jsonify({'message': 'Task added'}), 201
+
+@app.route('/tasks/<int:task_id>', methods=['PUT'])
+def update_task(task_id):
+    data = request.json
+    db = get_db()
+    db.execute('UPDATE tasks SET title=?, done=? WHERE id=?', (data['title'], data['done'], task_id))
+    db.commit()
+    db.close()
+    return jsonify({'message': 'Task updated'})
+
+@app.route('/tasks/<int:task_id>', methods=['DELETE'])
+def delete_task(task_id):
+    db = get_db()
+    db.execute('DELETE FROM tasks WHERE id=?', (task_id,))
+    db.commit()
+    db.close()
+    return jsonify({'message': 'Task deleted'})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+````
+
+**Instructions :**
+1. Installe Flask :  
+   ```
+   pip install flask
+   ```
+2. Lance le script :  
+   ```
+   python todo_api.py
+   ```
+3. Tu as maintenant une API REST pour gérer tes tâches :  
+   - `GET /tasks` : liste des tâches
+   - `POST /tasks` : ajoute une tâche (`{"title": "Ma tâche"}`)
+   - `PUT /tasks/<id>` : modifie une tâche (`{"title": "...", "done": true/false}`)
+   - `DELETE /tasks/<id>` : supprime une tâche
+
+Tu pourras connecter le frontend plus tard !
+
+Zapphyrr: Ok, avant toute chose, pourquoi tu fais app = Flask(__name__) ?
+
+GitHub Copilot: `app = Flask(__name__)` crée une **instance de l’application Flask**.
+
+- `Flask(__name__)` indique à Flask où se trouve le point d’entrée de l’application (le module principal).
+- Cela permet à Flask de trouver les fichiers statiques, les templates, et de gérer les routes.
+
+En résumé :  
+C’est la première étape pour initialiser une application web avec Flask.
+
+Zapphyrr: ensuite, peux-tu m'expliquer la fonction get_db
+
+GitHub Copilot: La fonction `get_db()` sert à **ouvrir une connexion à la base de données SQLite**.
+
+```python
+def get_db():
+    conn = sqlite3.connect('tasks.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+```
+
+- `sqlite3.connect('tasks.db')` : ouvre (ou crée) le fichier de base de données `tasks.db`.
+- `conn.row_factory = sqlite3.Row` : permet de récupérer les résultats sous forme de dictionnaires (clé/valeur), ce qui facilite la conversion en JSON.
+- La fonction retourne la connexion, utilisée pour exécuter des requêtes SQL.
+
+**En résumé :**  
+`get_db()` simplifie l’accès à la base de données pour chaque requête de l’API.
