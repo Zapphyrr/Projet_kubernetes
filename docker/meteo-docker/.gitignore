@@ -1,0 +1,19 @@
+# Ignorer les fichiers de configuration contenant des secrets
+.env
+
+# Ignorer les fichiers Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ignorer les environnements virtuels
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Ignorer les logs
+*.log

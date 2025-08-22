@@ -1,10 +1,18 @@
 from flask import Flask, render_template, request
 import requests
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
 
 app = Flask(__name__)
 
-API_KEY = "4ae24fb06000fb1a34688bd82f966924"
+# Récupérer la clé API depuis les variables d'environnement
+API_KEY = os.getenv('API_KEY')
+if not API_KEY:
+    raise ValueError("La clé API est manquante. Veuillez configurer la variable d'environnement API_KEY dans le fichier .env")
 
 def get_meteo(lat, lon):
     url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
