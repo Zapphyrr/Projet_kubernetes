@@ -170,7 +170,7 @@ docker-compose up --build
 
 **Exemple d’interface :**
 
-<img width="250" alt="todo" src="https://github.com/user-attachments/assets/0de91b09-ec33-4a2a-8563-36d35484a837" />
+![Aperçu de la ToDo App](images/image.png)
 
 ---
 
