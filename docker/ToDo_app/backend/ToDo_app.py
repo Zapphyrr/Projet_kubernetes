@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import sqlite3
 from flask_cors import CORS
+import requests
+import os
 
 app = Flask(__name__)
 CORS(app)  # Permet les requêtes cross-origin
@@ -22,6 +24,24 @@ def init_db():
     db.commit()
     db.close()
 
+# Nouvelle route pour la météo
+@app.route('/api/weather/<city>', methods=['GET'])
+def get_weather(city):
+    try:
+        api_key = os.getenv('OPENWEATHER_API_KEY')
+        if not api_key:
+            return jsonify({'error': 'API key not configured'}), 500
+            
+        url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            return jsonify(response.json())
+        else:
+            return jsonify({'error': 'Weather data not found'}), 404
+            
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():

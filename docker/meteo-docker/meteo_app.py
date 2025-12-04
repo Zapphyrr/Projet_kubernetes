@@ -42,4 +42,4 @@ def meteo():
     return render_template("meteo.html", city=city, temp=temp, icon=icon, description=description, now=now)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=4000)

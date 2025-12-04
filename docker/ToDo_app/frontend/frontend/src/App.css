@@ -41,12 +41,13 @@
   color: #888;
 }
 .app {
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 500px;
+  margin: 20x auto;
   padding: 20px;
-  border-radius: 8px;
   font-family: Arial, sans-serif;
-  background-color: #4d4040; 
+  background-color: #4d4040;
+  border-radius: 10px; /* Bordures arrondies pour le conteneur principal */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -268,7 +269,7 @@ h1 {
   font-size: 16px;
   cursor: pointer;
   padding: 5px;
-  opacity: 0.6;
+  opacity: 1;
   transition: opacity 0.2s;
   border-radius: 3px;
 }
@@ -347,4 +348,76 @@ h1 {
 
 .cancel-edit-button:hover {
   background-color: #c82333;
+}
+
+/* Layout principal */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+/* Widget météo */
+.weather-widget {
+  background-color: #34495e;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.weather-widget h3 {
+  margin: 0 0 15px 0;
+  color: #ecf0f1;
+  text-align: center;
+}
+
+.weather-content {
+  text-align: center;
+}
+.weather-container {
+  flex: 0 0 300px; /* Largeur fixe pour la météo */
+}
+
+.weather-temp {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+.weather-desc {
+  font-size: 1.1em;
+  color: #bdc3c7;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.weather-city {
+  font-size: 0.9em;
+  color: #95a5a6;
+}
+
+.weather-loading, .weather-error {
+  text-align: center;
+  color: #bdc3c7;
+  font-style: italic;
+}
+.weather-iframe {
+  border-radius: 10px;
+  overflow: hidden;
 }
