@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 const API_URL = 'http://localhost:5000';
-const WEATHER_API_URL = 'http://localhost:4000';
+/*const WEATHER_API_URL = 'http://localhost:4000';*/
 
 function WeatherWidget() {
   return (
@@ -103,6 +103,55 @@ function WeatherWidget() {
   );
 }
 */
+function NavigationPanel({ tasks, activeCategory, onCategoryChange }) {
+  // Calcul des compteurs pour chaque catégorie
+  const counts = {
+    all: tasks.length,
+    today: tasks.filter(task => !task.done).length, // Tâches à faire aujourd'hui
+    important: tasks.filter(task => task.priority === 'high' || task.important).length // Tâches importantes
+  };
+
+  const categories = [
+    {
+      id: 'all',
+      icon: '📋',
+      label: 'Tout',
+      count: counts.all
+    },
+    {
+      id: 'today',
+      icon: '📅',
+      label: "Aujourd'hui",
+      count: counts.today
+    },
+    {
+      id: 'important',
+      icon: '⭐',
+      label: 'Important',
+      count: counts.important
+    }
+  ];
+
+  return (
+    <div className="navigation-panel">
+      <h2 className="nav-title">📝 Mes Tâches</h2>
+      <nav className="nav-list">
+        {categories.map(category => (
+          <div 
+            key={category.id}
+            className={`nav-item ${activeCategory === category.id ? 'active' : ''}`}
+            onClick={() => onCategoryChange(category.id)}
+          >
+            <span className="nav-icon">{category.icon}</span>
+            <span className="nav-label">{category.label}</span>
+            <span className="nav-counter">{category.count}</span>
+          </div>
+        ))}
+      </nav>
+    </div>
+  );
+}
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -111,6 +160,7 @@ function App() {
   const [editingTaskTitle, setEditingTaskTitle] = useState('');
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [loading, setLoading] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('all'); // Nouvelle state
 
   // Charger les tâches au démarrage
   useEffect(() => {
@@ -239,138 +289,173 @@ function App() {
     }
   };
 
+  // Fonction pour filtrer les tâches selon la catégorie
+  const getFilteredTasks = () => {
+    switch(activeCategory) {
+      case 'today':
+        return tasks.filter(task => !task.done);
+      case 'important':
+        return tasks.filter(task => task.priority === 'high' || task.important);
+      default:
+        return tasks;
+    }
+  };
+
+  const handleCategoryChange = (categoryId) => {
+    setActiveCategory(categoryId);
+  };
+
+  const filteredTasks = getFilteredTasks();
+
   return (
+    <div className="app-layout">
+      {/* Volet de navigation à gauche */}
+      <NavigationPanel 
+        tasks={tasks}
+        activeCategory={activeCategory}
+        onCategoryChange={handleCategoryChange}
+      />
       
-    <div className="main-content">
-      {/* Widget météo en haut ou sur le côté */}
-      <div className="weather-container">
-        <WeatherWidget />
-      </div>
-      <div className="app">
-        <h1>Ma Todo List</h1>
-        
-        {/* Bouton d'ajout */}
-        <div className="add-section">
-          <div className="action-buttons">
-            <button 
-              className="add-button"
-              onClick={() => setShowForm(!showForm)}
-              title="Ajouter une tâche"
-            >
-              +
-            </button>
-            <button 
-                className={`edit-button ${editMode ? 'active' : ''}`}
-                onClick={() => setEditMode(!editMode)}
-                title="Mode modification"
-              >
-                ✏️
-              </button>
-            </div>
-          {/* Formulaire d'ajout */}
-          {showForm && (
-            <div className="add-form">
-              <input 
-                type="text"
-                placeholder="Nouvelle tâche..."
-                value={newTaskTitle}
-                onChange={(e) => setNewTaskTitle(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && addTask()}
-                autoFocus
-              />
-              <button onClick={addTask} className="confirm-button">
-                Ajouter
-              </button>
-              <button onClick={() => setShowForm(false)} className="cancel-button">
-                Annuler
-              </button>
-            </div>
-          )}
+      {/* Contenu principal */}
+      <div className="main-content">
+        {/* Widget météo */}
+        <div className="weather-container">
+          <WeatherWidget />
         </div>
         
-        <div className="todo-list">
-          {loading ? (
-            <div className="loading">Chargement...</div>
-          ) : tasks.length === 0 ? (
-            <div className="empty-state">
-              Aucune tâche. Cliquez sur + pour en ajouter une !
-            </div>
-          ) : (
-            tasks.map(task => (
-              <div 
-                key={task.id} 
-                className={`todo-item ${task.done ? 'completed' : ''} ${editingTaskId === task.id ? 'editing' : ''}`}
-                onClick={() => !editMode && editingTaskId !== task.id && toggleTask(task.id)}
+        <div className="app">
+          <h1>
+            {activeCategory === 'all' && 'Ma Todo List'}
+            {activeCategory === 'today' && "Tâches d'aujourd'hui"}
+            {activeCategory === 'important' && 'Tâches importantes'}
+          </h1>
+          
+          {/* Bouton d'ajout */}
+          <div className="add-section">
+            <div className="action-buttons">
+              <button 
+                className="add-button"
+                onClick={() => setShowForm(!showForm)}
+                title="Ajouter une tâche"
               >
-                <div className="checkbox">
-                  {task.done ? '✓' : '○'}
-                </div>
-                
-                {/* Affichage normal ou mode édition */}
-                {editingTaskId === task.id ? (
-                  <div className="edit-inline">
-                    <input 
-                      type="text"
-                      className="edit-input"
-                      value={editingTaskTitle}
-                      onChange={(e) => setEditingTaskTitle(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
-                      autoFocus
-                    />
-                    <div className="edit-actions">
-                      <button 
-                        className="save-button"
-                        onClick={saveEdit}
-                        title="Valider"
-                      >
-                        ✓
-                      </button>
-                      <button 
-                        className="cancel-edit-button"
-                        onClick={cancelEdit}
-                        title="Annuler"
-                      >
-                        ✗
-                      </button>
-                    </div>
+                +
+              </button>
+              <button 
+                  className={`edit-button ${editMode ? 'active' : ''}`}
+                  onClick={() => setEditMode(!editMode)}
+                  title="Mode modification"
+                >
+                  ✏️
+                </button>
+              </div>
+            {/* Formulaire d'ajout */}
+            {showForm && (
+              <div className="add-form">
+                <input 
+                  type="text"
+                  placeholder="Nouvelle tâche..."
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && addTask()}
+                  autoFocus
+                />
+                <button onClick={addTask} className="confirm-button">
+                  Ajouter
+                </button>
+                <button onClick={() => setShowForm(false)} className="cancel-button">
+                  Annuler
+                </button>
+              </div>
+            )}
+          </div>
+          
+          <div className="todo-list">
+            {loading ? (
+              <div className="loading">Chargement...</div>
+            ) : filteredTasks.length === 0 ? (
+              <div className="empty-state">
+                {activeCategory === 'all' 
+                  ? 'Aucune tâche. Cliquez sur + pour en ajouter une !'
+                  : `Aucune tâche dans "${activeCategory === 'today' ? "Aujourd'hui" : 'Important'}".`
+                }
+              </div>
+            ) : (
+              filteredTasks.map(task => (
+                <div 
+                  key={task.id} 
+                  className={`todo-item ${task.done ? 'completed' : ''} ${editingTaskId === task.id ? 'editing' : ''}`}
+                  onClick={() => !editMode && editingTaskId !== task.id && toggleTask(task.id)}
+                >
+                  <div className="checkbox">
+                    {task.done ? '✓' : '○'}
                   </div>
-                ) : (
-                  <>
-                    <span className="task-title">{task.title}</span>
-                    
-                    {/* Boutons d'actions visibles en mode édition */}
-                    {editMode && (
-                      <div className="item-actions">
+                  
+                  {/* Affichage normal ou mode édition */}
+                  {editingTaskId === task.id ? (
+                    <div className="edit-inline">
+                      <input 
+                        type="text"
+                        className="edit-input"
+                        value={editingTaskTitle}
+                        onChange={(e) => setEditingTaskTitle(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
+                        autoFocus
+                      />
+                      <div className="edit-actions">
                         <button 
-                          className="edit-item-button"
-                          onClick={(e) => startEditTask(task, e)}
-                          title="Modifier"
+                          className="save-button"
+                          onClick={saveEdit}
+                          title="Valider"
                         >
-                          ✏️
+                          ✓
                         </button>
                         <button 
-                          className="delete-button"
-                          onClick={(e) => deleteTask(task.id, e)}
-                          title="Supprimer"
+                          className="cancel-edit-button"
+                          onClick={cancelEdit}
+                          title="Annuler"
                         >
-                          🗑️
+                          ✗
                         </button>
                       </div>
-                    )}
-                  </>
-                )}
-              </div>
-            ))
+                    </div>
+                  ) : (
+                    <>
+                      <span className="task-title">{task.title}</span>
+                      
+                      {/* Boutons d'actions visibles en mode édition */}
+                      {editMode && (
+                        <div className="item-actions">
+                          <button 
+                            className="edit-item-button"
+                            onClick={(e) => startEditTask(task, e)}
+                            title="Modifier"
+                          >
+                            ✏️
+                          </button>
+                          <button 
+                            className="delete-button"
+                            onClick={(e) => deleteTask(task.id, e)}
+                            title="Supprimer"
+                          >
+                            🗑️
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+          
+          {filteredTasks.length > 0 && (
+            <div className="stats">
+              Total: {filteredTasks.length} | 
+              Terminées: {filteredTasks.filter(t => t.done).length} | 
+              Restantes: {filteredTasks.filter(t => !t.done).length}
+            </div>
           )}
         </div>
-        
-        {tasks.length > 0 && (
-          <div className="stats">
-            Total: {tasks.length} | 
-            Terminées: {tasks.filter(t => t.done).length} | 
-            Restantes: {tasks.filter(t => !t.done).length}
-          </div>
-        )}
       </div>
     </div>      
   )
