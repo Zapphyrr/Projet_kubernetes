@@ -174,6 +174,132 @@ docker-compose up --build
 
 ---
 
+## 4. Orchestration complète : Docker Compose multi-services
+
+### Objectif
+Lancer simultanément les **trois grands services du projet** (Méteo, Backend, Frontend) en une seule commande avec **Docker Compose**.
+
+### Architecture globale
+
+```
+Utilisateur
+    ↓
+[Frontend - Port 5173]  (React/Vue - Node)
+    ↓
+[Backend - Port 5000]   (Flask - Python)
+    ↓
+[Méteo - Port 4000]     (Flask - Python)
+```
+
+### Configuration Docker Compose
+
+Créez un fichier **`docker-compose.yml`** à la racine du projet avec la configuration suivante :
+
+```yaml
+version: "3.9"
+
+services:
+  # Service Météo
+  meteo:
+    build:
+      context: ./docker/meteo-docker
+      dockerfile: dockerfile
+    container_name: meteo-service
+    ports:
+      - "4000:4000"
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+
+  # Backend - API Flask (Gestionnaire de tâches)
+  backend:
+    build:
+      context: ./docker/ToDo_app/backend
+      dockerfile: dockerfile
+    container_name: backend-service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      - ./docker/ToDo_app/backend:/backend
+    depends_on:
+      - meteo
+    restart: unless-stopped
+
+  # Frontend - React/Vue
+  frontend:
+    build:
+      context: ./docker/ToDo_app/frontend/frontend
+      dockerfile: dockerfile
+    container_name: frontend-service
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    volumes:
+      - ./docker/ToDo_app/frontend/frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+```
+
+### Accès aux services
+
+Une fois lancés, accédez à :
+
+| Service | URL | Port |
+|---------|-----|------|
+| 🌦️ **Météo** | [http://localhost:4000](http://localhost:4000) | 4000 |
+| 📋 **Backend API** | [http://localhost:5000](http://localhost:5000) | 5000 |
+| ⚛️ **Frontend** | [http://localhost:5173](http://localhost:5173) | 5173 |
+
+### Commandes de lancement
+
+#### Démarrer tous les services
+```bash
+docker-compose up --build
+```
+
+#### Démarrer en arrière-plan
+```bash
+docker-compose up -d --build
+```
+
+#### Arrêter tous les services
+```bash
+docker-compose down
+```
+
+#### Voir les logs en temps réel
+```bash
+docker-compose logs -f
+```
+
+#### Voir les logs d'un service spécifique
+```bash
+docker-compose logs -f frontend
+docker-compose logs -f backend
+docker-compose logs -f meteo
+```
+
+#### Reconstruire les images (utile après modifications)
+```bash
+docker-compose build
+```
+
+### Ordre de démarrage
+
+Docker Compose respecte l'ordre des dépendances :
+1. **Méteo** démarre en premier
+2. **Backend** attend que Méteo soit prêt
+3. **Frontend** attend que Backend soit prêt
+
+Cet ordre garantit que tous les services de communication sont disponibles.
+
+---
+
 ## Compétences techniques mises en œuvre
 
 | Domaine | Technologies |
